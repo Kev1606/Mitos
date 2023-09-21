@@ -11,6 +11,7 @@ class TipoComp(Enum):
     MASTER =  auto()
     FUNCION = auto()
     PUNTUACION = auto()
+    ASIGNACION = auto()
     PARENTESIS = auto()
 
     COMENTARIO = auto()
@@ -53,13 +54,14 @@ class Explorador:
     descriptores = [
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra)'),
-        (TipoComp.PUNTUACION, r'^:'),
+        (TipoComp.PUNTUACION, r'^;'),
+        (TipoComp.ASIGNACION, r'^='),
         (TipoComp.PARENTESIS, r'^([(){}])'),    
         (TipoComp.COMENTARIO, r'^--'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(ciclope)'),
         (TipoComp.COMPARADOR,r'^(==|!=|<|>|<=|>=)'),
-        (TipoComp.OPEMATE, r'^(\+|\-|\/|\*|raizQ)$'),
+        (TipoComp.OPEMATE, r'^(\+|\-|\/|\*|raizQ)'),
         (TipoComp.TIPO,r'^(fenix|unicornio|ponto|supay)'),
         (TipoComp.CONSTANTE, r'^(!)'),
         (TipoComp.VARIABLE,r'^(#)'),
@@ -86,7 +88,7 @@ class Explorador:
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
         # termina cuando la linea esta vacia o es un salto de linea o es un comentario de linea 
-        while(linea != "" or linea != "\n"):
+        while(linea):
             linea = linea.strip()
             if (re.match(self.descriptores[0][1], linea)) != None:
                 componente = re.match(self.descriptores[0][1], linea)
@@ -113,14 +115,13 @@ class Explorador:
                 linea = linea[componente.end():]
             
             elif (re.match(self.descriptores[4][1], linea)) != None:
-                break
-                
-            elif (re.match(self.descriptores[5][1], linea)) != None:
-                componente = re.match(self.descriptores[5][1], linea)
-                nuevoComponente = ComponenteLexico(self.descriptores[5][0], componente.group(), numLinea)
+                componente = re.match(self.descriptores[4][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[4][0], componente.group(), numLinea)
                 componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
                 
+            elif (re.match(self.descriptores[5][1], linea)) != None:
+                break
 
             elif (re.match(self.descriptores[6][1], linea)) != None:
                 componente = re.match(self.descriptores[6][1], linea)
@@ -187,8 +188,17 @@ class Explorador:
                 nuevoComponente = ComponenteLexico(self.descriptores[16][0], componente.group(), numLinea)
                 componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
+            elif (re.match(self.descriptores[17][1], linea)) != None:
+                componente = re.match(self.descriptores[17][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[17][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
+                linea = linea[componente.end():]
+                
             else:
+                # Manejo de errores
+                print(f'Error lexico en la linea {numLinea}')
                 break
+        return componentes
 
 text = """-- imprimir n cantidad de dígitos de la serie de fibonacci
 ra cant_fibonacci(fenix #n){
@@ -209,6 +219,6 @@ ra cant_fibonacci(fenix #n){
 lines = text.split('\n')
 # print(lines)
 
-# expo = Explorador(["ra cant_fibonacci(fenix #n){"])
-expo = Explorador(lines)
+expo = Explorador(["siguiente = actual + siguiente;"])
+# expo = Explorador(lines)
 expo.explorar()
