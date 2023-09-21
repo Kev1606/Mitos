@@ -77,9 +77,10 @@ class Explorador:
     def explorar(self):
         # itera sobre cada línea del archivo y genera los componentes lexicos
 
-        for i, linea in enumerate(self.texto, 1):
-            resultado = self.procesarLinea(linea, i)
+        for num, linea in enumerate(self.texto, 1):
+            resultado = self.procesarLinea(linea, num)
             self.componentes = self.componentes + resultado
+    
     
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
