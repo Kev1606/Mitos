@@ -83,8 +83,7 @@ class Explorador:
     
     def procesarLinea(self, linea: str):
         componentes = []
-        while(linea != ""):
-
+        while(linea != "" or linea != "\n"):
             if (re.match(self.descriptores[0][1])) != None:
                 componente = re.match(self.descriptores[0][1])
                 nuevoComponente = ComponenteLexico(self.descriptores[0][0], componente.group())
