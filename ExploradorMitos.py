@@ -54,7 +54,7 @@ class Explorador:
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra)'),
         (TipoComp.PUNTUACION, r'^:'),
-        (TipoComp.PARENTESIS, r'^([(){}])'),
+        (TipoComp.PARENTESIS, r'^\((.*?)\) \{(.*?)\}'),    
         (TipoComp.COMENTARIO, r'^--'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(ciclope)'),
