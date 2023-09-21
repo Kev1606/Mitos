@@ -79,7 +79,9 @@ class Explorador:
 
         for num, linea in enumerate(self.texto, 1):
             resultado = self.procesarLinea(linea, num)
-            self.componentes = self.componentes + resultado
+            #  es para evitar que se agregue None a la lista de componentes por comentario que no retorna nada
+            if resultado != None:
+                self.componentes = self.componentes + resultado
     
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
@@ -109,6 +111,9 @@ class Explorador:
                 nuevoComponente = ComponenteLexico(self.descriptores[3][0], componente.group(), numLinea)
                 componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
+            
+            elif (re.match(self.descriptores[4][1], linea)) != None:
+                break
                 
             elif (re.match(self.descriptores[5][1], linea)) != None:
                 componente = re.match(self.descriptores[5][1], linea)
@@ -182,7 +187,28 @@ class Explorador:
                 nuevoComponente = ComponenteLexico(self.descriptores[16][0], componente.group(), numLinea)
                 componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                
+            else:
+                break
 
-expo = Explorador(["ra cant_fibonacci(fenix #n){"])
+text = """-- imprimir n cantidad de dígitos de la serie de fibonacci
+ra cant_fibonacci(fenix #n){
+    fenix #actual = 0;
+    fenix #siguiente = 1;
+    fenix #contador = 0;
+    fenix #auxiliar = 0;
+    ciclope (contador < n){
+        sirena(actual);
+        auxiliar= siguiente;
+        siguiente = actual + siguiente;
+        actual = auxiliar;
+        contador += 1;
+    };
+    hades true;
+};"""
+
+lines = text.split('\n')
+# print(lines)
+
+# expo = Explorador(["ra cant_fibonacci(fenix #n){"])
+expo = Explorador(lines)
 expo.explorar()
