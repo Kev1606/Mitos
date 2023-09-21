@@ -81,7 +81,6 @@ class Explorador:
             resultado = self.procesarLinea(linea, num)
             self.componentes = self.componentes + resultado
     
-    
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
         while(linea != "" or linea != "\n"):
@@ -91,20 +90,12 @@ class Explorador:
                 componentes.append(componente)
                 linea = linea[componente.end():]
                 break
-            elif (re.match(self.descriptores[1][1])) != None:
-                componente = re.match(self.descriptores[1][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[1][0], componente.group())
-                break;
             elif (re.match(self.descriptores[1][1], linea)) != None:
                 componente = re.match(self.descriptores[1][1], linea)
                 nuevoComponente = ComponenteLexico(self.descriptores[1][0], componente.group(), numLinea)
                 componentes.append(componente)
                 linea = linea[componente.end():]
                 break
-            elif (re.match(self.descriptores[2][1])) != None:
-                componente = re.match(self.descriptores[2][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[2][0], componente.group())
-                break;
             elif (re.match(self.descriptores[2][1], linea)) != None:
                 componente = re.match(self.descriptores[2][1], linea)
                 nuevoComponente = ComponenteLexico(self.descriptores[2][0], componente.group(), numLinea)
