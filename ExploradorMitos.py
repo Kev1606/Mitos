@@ -41,9 +41,8 @@ class ComponenteLexico:
         self.texto = pTexto
         self.linea = pLinea
 
-    def aTexto(self):
-        formatoSTR = f'{self.tipo:20} <{self.texto}> "en la linea" {self.linea}'
-        return formatoSTR
+    def __str__(self):
+        return f'{self.tipo:20} <{self.texto}> "en la linea" {self.linea}'
 
 
 class Explorador:
@@ -84,6 +83,12 @@ class Explorador:
             #  es para evitar que se agregue None a la lista de componentes por comentario que no retorna nada
             if resultado != None:
                 self.componentes = self.componentes + resultado
+
+    def imprimir_componentes(self):
+        for componente in self.componentes:
+            print(componente)   # Esto funciona por que el print llama al
+                                # método __str__ de la instancia 
+
     
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
@@ -219,6 +224,7 @@ ra cant_fibonacci(fenix #n){
 lines = text.split('\n')
 # print(lines)
 
-expo = Explorador(["siguiente = actual + siguiente;"])
-# expo = Explorador(lines)
+# expo = Explorador(["siguiente = actual + siguiente;"])
+expo = Explorador(lines)
 expo.explorar()
+expo.imprimir_componentes()
