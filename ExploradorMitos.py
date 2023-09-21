@@ -59,7 +59,7 @@ class Explorador:
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(ciclope)'),
         (TipoComp.COMPARADOR,r'^(==|!=|<|>|<=|>=)'),
-        (TipoComp.OPEMATE,r'^(+|-|/|*|raizQ)'),
+        (TipoComp.OPEMATE, r'^(\+|\-|\/|\*|raizQ)$'),
         (TipoComp.TIPO,r'^(fenix|unicornio|ponto|supay)'),
         (TipoComp.CONSTANTE, r'^(!)'),
         (TipoComp.VARIABLE,r'^(#)'),
@@ -77,108 +77,111 @@ class Explorador:
     def explorar(self):
         # itera sobre cada línea del archivo y genera los componentes lexicos
 
-        for linea in self.texto:
-            resultado = self.procesarLinea(linea)
+        for num, linea in enumerate(self.texto, 1):
+            resultado = self.procesarLinea(linea, num)
             self.componentes = self.componentes + resultado
     
-    def procesarLinea(self, linea: str):
+    def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
+        # termina cuando la linea esta vacia o es un salto de linea o es un comentario de linea 
         while(linea != "" or linea != "\n"):
-            if (re.match(self.descriptores[0][1])) != None:
-                componente = re.match(self.descriptores[0][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[0][0], componente.group())
-                componentes.append(componente)
+            if (re.match(self.descriptores[0][1], linea)) != None:
+                componente = re.match(self.descriptores[0][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[0][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[1][1])) != None:
-                componente = re.match(self.descriptores[1][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[1][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[1][1], linea)) != None:
+                componente = re.match(self.descriptores[1][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[1][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[2][1])) != None:
-                componente = re.match(self.descriptores[2][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[2][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[2][1], linea)) != None:
+                componente = re.match(self.descriptores[2][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[2][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[3][1])) != None:
-                componente = re.match(self.descriptores[3][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[3][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[3][1], linea)) != None:
+                componente = re.match(self.descriptores[3][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[3][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[5][1])) != None:
-                componente = re.match(self.descriptores[5][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[5][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[5][1], linea)) != None:
+                componente = re.match(self.descriptores[5][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[5][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[6][1])) != None:
-                componente = re.match(self.descriptores[6][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[6][0], componente.group())
-                componentes.append(componente)
+                
+
+            elif (re.match(self.descriptores[6][1], linea)) != None:
+                componente = re.match(self.descriptores[6][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[6][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[7][1])) != None:
-                componente = re.match(self.descriptores[7][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[7][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[7][1], linea)) != None:
+                componente = re.match(self.descriptores[7][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[7][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[8][1])) != None:
-                componente = re.match(self.descriptores[8][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[8][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[8][1], linea)) != None:
+                componente = re.match(self.descriptores[8][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[8][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[9][1])) != None:
-                componente = re.match(self.descriptores[9][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[9][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[9][1], linea)) != None:
+                componente = re.match(self.descriptores[9][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[9][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[10][1])) != None:
-                componente = re.match(self.descriptores[10][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[10][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[10][1], linea)) != None:
+                componente = re.match(self.descriptores[10][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[10][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[11][1])) != None:
-                componente = re.match(self.descriptores[11][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[11][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[11][1], linea)) != None:
+                componente = re.match(self.descriptores[11][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[11][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[12][1])) != None:
-                componente = re.match(self.descriptores[12][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[12][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[12][1], linea)) != None:
+                componente = re.match(self.descriptores[12][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[12][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[13][1])) != None:
-                componente = re.match(self.descriptores[13][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[13][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[13][1], linea)) != None:
+                componente = re.match(self.descriptores[13][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[13][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[14][1])) != None:
-                componente = re.match(self.descriptores[14][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[14][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[14][1], linea)) != None:
+                componente = re.match(self.descriptores[14][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[14][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[15][1])) != None:
-                componente = re.match(self.descriptores[15][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[15][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[15][1], linea)) != None:
+                componente = re.match(self.descriptores[15][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[15][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            elif (re.match(self.descriptores[16][1])) != None:
-                componente = re.match(self.descriptores[16][1])
-                nuevoComponente = ComponenteLexico(self.descriptores[16][0], componente.group())
-                componentes.append(componente)
+                
+            elif (re.match(self.descriptores[16][1], linea)) != None:
+                componente = re.match(self.descriptores[16][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[16][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                break
-            else:
-                break
+                
+
+expo = Explorador(["ra cant_fibonacci(fenix #n){"])
+expo.explorar()
