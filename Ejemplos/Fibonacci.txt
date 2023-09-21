@@ -1,0 +1,15 @@
+-- imprimir n cantidad de dígitos de la serie de fibonacci
+ra cant_fibonacci(fenix #n){
+	fenix #actual = 0;
+	fenix #siguiente = 1;
+	fenix #contador = 0;
+	fenix #auxiliar = 0;
+		ciclope (contador < n){
+			sirena(actual);
+			auxiliar= siguiente;
+			siguiente = actual + siguiente;
+			actual = auxiliar;
+			contador += 1;
+		};
+    	hades true;
+	};

@@ -1,0 +1,25 @@
+-- número a dia de la semana
+ra num_semana(fenix #n){
+	temis (n==1) atenea{
+		hades "Lunes";
+	};
+	temis (n==2) atenea{
+		hades "Martes";
+	};
+	temis (n==3) atenea{
+		hades "Miércoles";
+	};
+	temis (n==4) atenea{
+		hades "Jueves";
+	};
+	temis (n==5) atenea{
+		hades "Viernes";
+	};
+	temis (n==6) atenea{
+		hades "Sábado";
+	};
+	temis (n==7) atenea{
+		hades "Domingo";
+	};
+	hades "";
+};

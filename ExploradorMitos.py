@@ -181,4 +181,4 @@ class Explorador:
                 linea = linea[componente.end():]
                 break
             else:
-                # MANEJAR EL ERROR AQUI
+                break

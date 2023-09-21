@@ -1,0 +1,9 @@
+-- funcion factorial evaluada en n
+ra factorial(fenix #n){
+	fenix #resultado = 1;
+	ciclope (n>1){
+		resultado = resultado*n;
+		n = n-1;
+	};
+	hades resultado;
+};

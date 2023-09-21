@@ -1,0 +1,14 @@
+-- determinar si un número es primo
+ra es_primo(fenix #n){
+	temis (n<2) atenea{
+		hades  Falso;
+	};
+	fenix #i = 2;
+	ciclope (i<= raizQ(n)){
+		temis (n % i == 0) atenea{
+			hades  Falso;
+		};
+		i = i*1;
+	};
+	hades Verdadero;
+};
