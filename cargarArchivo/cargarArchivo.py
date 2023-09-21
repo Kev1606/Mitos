@@ -1,9 +1,5 @@
-def cargar_archivo(ruta_archivo):
-    """
-    Carga un archivo y lo retorna cómo un solo string pero línea por línea
-    en caso de que el archivo 
-    """
-
+# Procesa un archivo de texto y retorna un string de linea por linea
+def leer_archivo(ruta_archivo):
     with open(ruta_archivo) as archivo:
         for linea in archivo:
             yield linea.strip("\n")

@@ -204,27 +204,3 @@ class Explorador:
                 print(f'Error lexico en la linea {numLinea}')
                 break
         return componentes
-
-text = """-- imprimir n cantidad de dígitos de la serie de fibonacci
-ra cant_fibonacci(fenix #n){
-    fenix #actual = 0;
-    fenix #siguiente = 1;
-    fenix #contador = 0;
-    fenix #auxiliar = 0;
-    ciclope (contador < n){
-        sirena(actual);
-        auxiliar= siguiente;
-        siguiente = actual + siguiente;
-        actual = auxiliar;
-        contador += 1;
-    };
-    hades true;
-};"""
-
-lines = text.split('\n')
-# print(lines)
-
-# expo = Explorador(["siguiente = actual + siguiente;"])
-expo = Explorador(lines)
-expo.explorar()
-expo.imprimir_componentes()
