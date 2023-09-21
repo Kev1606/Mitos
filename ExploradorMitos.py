@@ -54,7 +54,7 @@ class Explorador:
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra)'),
         (TipoComp.PUNTUACION, r'^:'),
-        (TipoComp.PARENTESIS, r'^\((.*?)\) \{(.*?)\}'),    
+        (TipoComp.PARENTESIS, r'^([(){}])'),    
         (TipoComp.COMENTARIO, r'^--'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(ciclope)'),
@@ -64,9 +64,9 @@ class Explorador:
         (TipoComp.CONSTANTE, r'^(!)'),
         (TipoComp.VARIABLE,r'^(#)'),
         (TipoComp.BOOLEANO,r'^(true|false)'),
-        (TipoComp.ENTERO, r'^[0123456789]*'),
+        (TipoComp.ENTERO, r'^[0123456789]+'),
         (TipoComp.FLOTANTE, r'^(-?[0-9]+\.[0-9]+)'),
-        (TipoComp.TEXTO,r'^([a-z]*[A-Z]*[0-9]*)~'),
+        (TipoComp.TEXTO,r'^([a-zA-Z0-9_-]*)'),
         (TipoComp.GLOBAL,r'^(global)')
     ]
 
@@ -85,6 +85,7 @@ class Explorador:
         componentes = []
         # termina cuando la linea esta vacia o es un salto de linea o es un comentario de linea 
         while(linea != "" or linea != "\n"):
+            linea = linea.strip()
             if (re.match(self.descriptores[0][1], linea)) != None:
                 componente = re.match(self.descriptores[0][1], linea)
                 nuevoComponente = ComponenteLexico(self.descriptores[0][0], componente.group(), numLinea)
