@@ -4,12 +4,11 @@ ra cant_fibonacci(fenix #n){
 	fenix #siguiente = 1;
 	fenix #contador = 0;
 	fenix #auxiliar = 0;
-		ciclope (contador < n){
-			sirena(actual);
+		sisifo (contador < n){
 			auxiliar= siguiente;
 			siguiente = actual + siguiente;
 			actual = auxiliar;
 			contador += 1;
 		};
-    	hades true;
+    	hades actual;
 	};

@@ -1,7 +1,7 @@
 -- funcion factorial evaluada en n
 ra factorial(fenix #n){
 	fenix #resultado = 1;
-	ciclope (n>1){
+	sisifo (n>1){
 		resultado = resultado*n;
 		n = n-1;
 	};

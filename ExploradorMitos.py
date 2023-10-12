@@ -58,16 +58,16 @@ class Explorador:
         (TipoComp.PARENTESIS, r'^([(){}])'),    
         (TipoComp.COMENTARIO, r'^--'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
-        (TipoComp.REPETICION, r'^(ciclope)'),
+        (TipoComp.REPETICION, r'^(sisifo)'),
         (TipoComp.COMPARADOR,r'^(==|!=|<|>|<=|>=)'),
         (TipoComp.OPEMATE, r'^(\+|\-|\/|\*|raizQ)'),
         (TipoComp.TIPO,r'^(fenix|unicornio|ponto|supay)'),
         (TipoComp.CONSTANTE, r'^(!)'),
         (TipoComp.VARIABLE,r'^(#)'),
-        (TipoComp.BOOLEANO,r'^(true|false)'),
+        (TipoComp.BOOLEANO,r'^(Verdadero|Falso)'),
         (TipoComp.ENTERO, r'^[0123456789]+'),
         (TipoComp.FLOTANTE, r'^(-?[0-9]+\.[0-9]+)'),
-        (TipoComp.TEXTO,r'^([a-zA-Z0-9_-]*)'),
+        (TipoComp.TEXTO,r'^(\"[a-zA-Z0-9_-]*\")'),
         (TipoComp.GLOBAL,r'^(global)')
     ]
 
