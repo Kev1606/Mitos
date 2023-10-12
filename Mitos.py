@@ -25,15 +25,15 @@ def menu():
         print("5. ConvertirABinario")
         opcion = input("Ingrese el numero: ")
         if opcion == '1':
-            mitos("Explorador\Ejemplos\Factorial.txt")
+            mitos("./Ejemplos/Factorial.txt")
         elif opcion == '2':
-            mitos("Explorador\Ejemplos\Fibonacci.txt")
+            mitos("./Ejemplos/Fibonacci.txt")
         elif opcion == '3':
-            mitos("Explorador\Ejemplos\EsPrimo.txt")
+            mitos("./Ejemplos/EsPrimo.txt")
         elif opcion == '4':
-            mitos("Explorador\Ejemplos\DiaSemana.txt")
+            mitos("./Ejemplos/DiaSemana.txt")
         elif opcion == '5':
-            mitos("Explorador\Ejemplos\ConvertirABinario.txt")
+            mitos("./Ejemplos/ConvertirABinario.txt")
         else:
             break
         input("Presione Enter para continuar")
