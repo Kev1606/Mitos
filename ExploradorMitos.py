@@ -51,21 +51,23 @@ class Explorador:
     componentes = []
 
     descriptores = [
+        #https://docs.python.org/3/howto/regex.html
+        #corregir lexemas
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra)'),
         (TipoComp.PUNTUACION, r'^;'),
         (TipoComp.ASIGNACION, r'^='),
-        (TipoComp.PARENTESIS, r'^([(){}])'),    
-        (TipoComp.COMENTARIO, r'^--'),
+        (TipoComp.PARENTESIS, r'^([ \( | \) | \{ | \} ])'),    
+        (TipoComp.COMENTARIO, r'^\-\-'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(sisifo)'),
-        (TipoComp.COMPARADOR,r'^(==|!=|<|>|<=|>=)'),
+        (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<|\>|\<\=|\>\=)'),
         (TipoComp.OPEMATE, r'^(\+|\-|\/|\*|raizQ)'),
         (TipoComp.TIPO,r'^(fenix|unicornio|ponto|supay)'),
         (TipoComp.CONSTANTE, r'^(!)'),
         (TipoComp.VARIABLE,r'^(#)'),
         (TipoComp.BOOLEANO,r'^(Verdadero|Falso)'),
-        (TipoComp.ENTERO, r'^[0123456789]+'),
+        (TipoComp.ENTERO, r'^[0-9]+'),
         (TipoComp.FLOTANTE, r'^(-?[0-9]+\.[0-9]+)'),
         (TipoComp.TEXTO,r'^(\"[a-zA-Z0-9_-]*\")'),
         (TipoComp.GLOBAL,r'^(global)')
@@ -83,6 +85,7 @@ class Explorador:
             #  es para evitar que se agregue None a la lista de componentes por comentario que no retorna nada
             if resultado != None:
                 self.componentes = self.componentes + resultado
+        #AQUI ESTÁ EL ERROR DEL CICLO
 
     def imprimir_componentes(self):
         for componente in self.componentes:
@@ -200,7 +203,8 @@ class Explorador:
                 linea = linea[componente.end():]
                 
             else:
-                # Manejo de errores
-                print(f'Error lexico en la linea {numLinea}')
+                # Manejo de errores                         #ver lexema con error
+                print(f'Error lexico en la linea {numLinea} ":  " {linea}')
                 break
+                #probar el trycacth
         return componentes
