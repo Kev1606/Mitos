@@ -13,6 +13,7 @@ class TipoComp(Enum):
     PUNTUACION = auto()
     ASIGNACION = auto()
     PARENTESIS = auto()
+    RETORNO = auto()
 
     COMENTARIO = auto()
     CONDICIONAL = auto()
@@ -28,6 +29,7 @@ class TipoComp(Enum):
     FLOTANTE = auto()
     TEXTO = auto()
     GLOBAL = auto()
+    STRING = auto()
 
 
 class ComponenteLexico:
@@ -54,23 +56,25 @@ class Explorador:
         #https://docs.python.org/3/howto/regex.html
         #corregir lexemas
         (TipoComp.MASTER, r'^(zeus)'),
-        (TipoComp.FUNCION, r'^(ra)'),
+        (TipoComp.FUNCION, r'^(ra\s+)'),
         (TipoComp.PUNTUACION, r'^;'),
-        (TipoComp.ASIGNACION, r'^='),
+        (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<|\>|\<\=|\>\=)'),
         (TipoComp.PARENTESIS, r'^([ \( | \) | \{ | \} ])'),    
-        (TipoComp.COMENTARIO, r'^\-\-'),
+        (TipoComp.COMENTARIO, r'^(\-\-\s*)([a-zA-Z0-9_-]+)'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(sisifo)'),
-        (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<|\>|\<\=|\>\=)'),
-        (TipoComp.OPEMATE, r'^(\+|\-|\/|\*|raizQ)'),
+        (TipoComp.ASIGNACION, r'^='),
+        (TipoComp.OPEMATE, r'^(\+|\-|\//|\/|\*|raizQ|\%)'),
         (TipoComp.TIPO,r'^(fenix|unicornio|ponto|supay)'),
         (TipoComp.CONSTANTE, r'^(!)'),
-        (TipoComp.VARIABLE,r'^(#)'),
+        (TipoComp.VARIABLE,r'^(#+)([a-zA-Z0-9_-]+)'),
         (TipoComp.BOOLEANO,r'^(Verdadero|Falso)'),
         (TipoComp.ENTERO, r'^[0-9]+'),
         (TipoComp.FLOTANTE, r'^(-?[0-9]+\.[0-9]+)'),
-        (TipoComp.TEXTO,r'^(\"[a-zA-Z0-9_-]*\")'),
-        (TipoComp.GLOBAL,r'^(global)')
+        (TipoComp.RETORNO,r'^(hades)'),
+        (TipoComp.TEXTO,r'^([a-zA-Z0-9_-]+)'),
+        (TipoComp.GLOBAL,r'^(global)'),
+        (TipoComp.STRING,r'^["\'](.+)*["\']')
     ]
 
     def __init__(self, pArchivo):
@@ -190,7 +194,6 @@ class Explorador:
                 nuevoComponente = ComponenteLexico(self.descriptores[15][0], componente.group(), numLinea)
                 componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                
             elif (re.match(self.descriptores[16][1], linea)) != None:
                 componente = re.match(self.descriptores[16][1], linea)
                 nuevoComponente = ComponenteLexico(self.descriptores[16][0], componente.group(), numLinea)
@@ -201,7 +204,16 @@ class Explorador:
                 nuevoComponente = ComponenteLexico(self.descriptores[17][0], componente.group(), numLinea)
                 componentes.append(nuevoComponente)
                 linea = linea[componente.end():]
-                
+            elif (re.match(self.descriptores[18][1], linea)) != None:
+                componente = re.match(self.descriptores[18][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[18][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
+                linea = linea[componente.end():]
+            elif (re.match(self.descriptores[19][1], linea)) != None:
+                componente = re.match(self.descriptores[19][1], linea)
+                nuevoComponente = ComponenteLexico(self.descriptores[19][0], componente.group(), numLinea)
+                componentes.append(nuevoComponente)
+                linea = linea[componente.end():]
             else:
                 # Manejo de errores                         #ver lexema con error
                 print(f'Error lexico en la linea {numLinea} ":  " {linea}')

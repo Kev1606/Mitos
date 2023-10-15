@@ -25,9 +25,9 @@ def menu():
         print("5. ConvertirABinario")
         opcion = input("Ingrese el numero: ")
         if opcion == '1':
-            mitos("./Ejemplos/Factorial.txt")
-        elif opcion == '2':
             mitos("./Ejemplos/Fibonacci.txt")
+        elif opcion == '2':
+            mitos("./Ejemplos/Factorial.txt")
         elif opcion == '3':
             mitos("./Ejemplos/EsPrimo.txt")
         elif opcion == '4':
