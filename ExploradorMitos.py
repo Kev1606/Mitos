@@ -53,8 +53,6 @@ class Explorador:
     componentes = []
 
     descriptores = [
-        #https://docs.python.org/3/howto/regex.html
-        #corregir lexemas
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra\s+)'),
         (TipoComp.PUNTUACION, r'^;'),
@@ -83,13 +81,15 @@ class Explorador:
 
     def explorar(self):
         # itera sobre cada línea del archivo y genera los componentes lexicos
-
         for num, linea in enumerate(self.texto, 1):
             resultado = self.procesarLinea(linea, num)
+            
+            if resultado == False:
+                break
+            
             #  es para evitar que se agregue None a la lista de componentes por comentario que no retorna nada
             if resultado != None:
                 self.componentes = self.componentes + resultado
-        #AQUI ESTÁ EL ERROR DEL CICLO
 
     def imprimir_componentes(self):
         for componente in self.componentes:
@@ -99,7 +99,7 @@ class Explorador:
     
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []
-        # termina cuando la linea esta vacia o es un salto de linea o es un comentario de linea 
+        # termina cuando si la linea esta vacia, es salto de linea o un comentario de linea 
         while(linea):
             linea = linea.strip()
             if (re.match(self.descriptores[0][1], linea)) != None:
@@ -217,6 +217,6 @@ class Explorador:
             else:
                 # Manejo de errores                         #ver lexema con error
                 print(f'Error lexico en la linea {numLinea} ":  " {linea}')
-                break
-                #probar el trycacth
+                return False
+            
         return componentes
