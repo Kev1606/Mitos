@@ -123,3 +123,10 @@ class Analizador:
             return
 
         self.componenteActual = self.componentesLexicos[self.posicionComponenteActual]
+    def analizarFuncion(self):
+        """
+        Función ::=  ra Identificador (ParámetrosFunción) BloqueInstrucciones
+        """
+        nodosNuevos = []
+        self.verificar("ra")
+        
