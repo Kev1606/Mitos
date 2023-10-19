@@ -129,4 +129,11 @@ class Analizador:
         """
         nodosNuevos = []
         self.verificar("ra")
-        
+        nodosNuevos += [self.verificarIdentificador()]
+        self.verificar("(")
+        nodos_nuevos += [self.analizarParamsFuncion()]
+        self.verificar(')')
+        nodos_nuevos += [self.analizarBloqueInstrucciones()]
+        return NodoArbol(TipoComp.FUNCION, \
+                contenido=nodos_nuevos[0].contenido, nodos=nodos_nuevos)
+
