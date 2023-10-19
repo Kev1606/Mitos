@@ -136,4 +136,37 @@ class Analizador:
         nodos_nuevos += [self.analizarBloqueInstrucciones()]
         return NodoArbol(TipoComp.FUNCION, \
                 contenido=nodos_nuevos[0].contenido, nodos=nodos_nuevos)
+    def verificarIdentificador(self):
+        """
+        Verifica si el tipo del componente léxico actuales de tipo
+        IDENTIFICADOR
+
+        Identificador ::= [a-z][a-zA-Z0-9]+
+        """
+        self.verificarTipoComponente(TipoComp.IDENTIFICADOR)
+
+        nodo = NodoArbol(TipoNodo.IDENTIFICADOR, contenido =self.componente_actual.texto)
+        self.pasarSiguienteComponente()
+        return nodo
+    def pasarSiguienteComponente(self):
+        """
+        Pasa al siguiente componente léxico
+
+        Esto revienta por ahora
+        """
+        self.posición_componente_actual += 1
+
+        if self.posición_componente_actual >= self.cantidad_componentes:
+            return
+
+        self.componente_actual = \
+                self.componentes_léxicos[self.posición_componente_actual]
+    def __componente_venidero(self, avance=1):
+        """
+        Retorna el componente léxico que está 'avance' posiciones más
+        adelante... por default el siguiente. Esto sin adelantar el
+        contador del componente actual.
+        """
+        return self.componentes_léxicos[self.posición_componente_actual+avance]
+
 
