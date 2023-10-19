@@ -1,4 +1,4 @@
-from explorador import TipoComp, ComponenteLéxico
+from explorador.ExploradorMitos import TipoComp, ComponenteLexico
 from utils.arbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
 
 class Analizador:
@@ -8,7 +8,7 @@ class Analizador:
     componentesLexicos : list
     cantidadComponentes: int
     posicionComponenteActual : int
-    componenteActual : ComponenteLéxico
+    componenteActual : ComponenteLexico
 
     def __init__(self, listaComponentes):
 
