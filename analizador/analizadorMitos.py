@@ -1,15 +1,15 @@
 import sys
 sys.path.append("..")
 
-from explorador.explorador import TipoComponente, ComponenteLéxico
-from utils.árbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
+from explorador.ExploradorMitos import TipoComp, ComponenteLexico
+from utils.arbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
 
 class Analizador:
 
     componentes_léxicos : list
     cantidad_componentes: int
     posición_componente_actual : int
-    componente_actual : ComponenteLéxico
+    componente_actual : ComponenteLexico
 
     def __init__(self, lista_componentes):
 
@@ -55,7 +55,7 @@ class Analizador:
         while (True):
 
             # Si es asignación
-            if self.componente_actual.tipo == TipoComponente.IDENTIFICADOR:
+            if self.componente_actual.tipo == TipoComp.IDENTIFICADOR:
                 nodos_nuevos = [self.__analizar_asignación()]
 
             # Si es función
@@ -94,7 +94,7 @@ class Analizador:
         # El siguiente bloque es de opcionales
 
 
-        if self.componente_actual.tipo in [TipoComponente.ENTERO, TipoComponente.FLOTANTE, TipoComponente.VALOR_VERDAD, TipoComponente.TEXTO] :
+        if self.componente_actual.tipo in [TipoComp.ENTERO, TipoComp.FLOTANTE, TipoComp.VALOR_VERDAD, TipoComp.TEXTO] :
             nodos_nuevos += [self.__analizar_literal()]
 
         # los paréntesis obligatorios (es un poco feo)
@@ -102,7 +102,7 @@ class Analizador:
             nodos_nuevos += [self.__analizar_expresión_matemática()]
 
         # Acá tengo que decidir si es Invocación o solo un identificador
-        elif self.componente_actual.tipo == TipoComponente.IDENTIFICADOR:
+        elif self.componente_actual.tipo == TipoComp.IDENTIFICADOR:
 
             if self.__componente_venidero().texto == '(':
                 nodos_nuevos += [self.__analizar_invocación()]
@@ -135,10 +135,10 @@ class Analizador:
 
         # Acá yo se que estan bien formados por que eso lo hizo el
         # explorador... es nada más revisar las posiciones.
-        elif self.componente_actual.tipo == TipoComponente.ENTERO:
+        elif self.componente_actual.tipo == TipoComp.ENTERO:
             nodos_nuevos += [self.__verificar_entero()]
 
-        elif self.componente_actual.tipo == TipoComponente.FLOTANTE:
+        elif self.componente_actual.tipo == TipoComp.FLOTANTE:
             nodos_nuevos += [self.__verificar_flotante()]
 
         # Este código se simplifica si invierto la opción anterior y esta
@@ -266,7 +266,7 @@ class Analizador:
         elif self.componente_actual.texto == 'diay siii':
             nodos_nuevos += [self.__analizar_bifurcación()]
 
-        elif self.componente_actual.tipo == TipoComponente.IDENTIFICADOR:
+        elif self.componente_actual.tipo == TipoComp.IDENTIFICADOR:
 
 
             if self.__componente_venidero().texto == 'metale':
@@ -361,7 +361,7 @@ class Analizador:
         nodos_nuevos += [self.__analizar_comparación()]
 
         # Esta parte es opcional
-        if self.componente_actual.tipo == TipoComponente.PALABRA_CLAVE:
+        if self.componente_actual.tipo == TipoComp.PALABRA_CLAVE:
 
             # Acá estoy en problemas por que esto debió ser un nuevo nivel
             # en el árbol algo ási cómo OperadorLógico...  voy a hacer una
@@ -408,7 +408,7 @@ class Analizador:
         # niveles del árbol
 
         # El uno o el otro
-        if self.componente_actual.tipo is TipoComponente.IDENTIFICADOR:
+        if self.componente_actual.tipo is TipoComp.IDENTIFICADOR:
             nodo = self.__verificar_identificador()
         else:
             nodo = self.__analizar_literal()
@@ -425,7 +425,7 @@ class Analizador:
 
         # Este hay que validarlo para evitar el error en caso de que no
         # aparezca
-        if self.componente_actual.tipo in [TipoComponente.IDENTIFICADOR, TipoComponente.ENTERO, TipoComponente.FLOTANTE, TipoComponente.VALOR_VERDAD, TipoComponente.TEXTO] :
+        if self.componente_actual.tipo in [TipoComp.IDENTIFICADOR, TipoComp.ENTERO, TipoComp.FLOTANTE, TipoComp.VALOR_VERDAD, TipoComp.TEXTO] :
             nodos_nuevos += [self.__analizar_valor()]
 
         # Sino todo bien...
@@ -469,10 +469,10 @@ class Analizador:
         """
 
         # Acá le voy a dar vuelta por que me da pereza tanta validación
-        if self.componente_actual.tipo is TipoComponente.TEXTO:
+        if self.componente_actual.tipo is TipoComp.TEXTO:
             nodo = self.__verificar_texto()
 
-        elif  self.componente_actual.tipo is TipoComponente.VALOR_VERDAD:
+        elif  self.componente_actual.tipo is TipoComp.VALOR_VERDAD:
             nodo = self.__verificar_valor_verdad()
 
         else:
@@ -484,7 +484,7 @@ class Analizador:
         """
         Número ::= (Entero | Flotante)
         """
-        if self.componente_actual.tipo == TipoComponente.ENTERO:
+        if self.componente_actual.tipo == TipoComp.ENTERO:
             nodo = self.__verificar_entero()
         else:
             nodo = self.__verificar_flotante()
@@ -508,7 +508,7 @@ class Analizador:
 
         # Acá todo puede venir uno o más 
         while self.componente_actual.texto in ['upee', 'diay siii', 'sarpe', 'safis'] \
-                or self.componente_actual.tipo == TipoComponente.IDENTIFICADOR:
+                or self.componente_actual.tipo == TipoComp.IDENTIFICADOR:
         
             nodos_nuevos += [self.__analizar_instrucción()]
 
@@ -522,7 +522,7 @@ class Analizador:
         """
         Operador ::= (echele | quitele | chuncherequee | desmadeje)
         """
-        self.__verificar_tipo_componente(TipoComponente.OPERADOR)
+        self.__verificar_tipo_componente(TipoComp.OPERADOR)
 
         nodo = NodoÁrbol(TipoNodo.OPERADOR, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
@@ -533,7 +533,7 @@ class Analizador:
         """
         ValorVerdad ::= (True | False)
         """
-        self.__verificar_tipo_componente(TipoComponente.VALOR_VERDAD)
+        self.__verificar_tipo_componente(TipoComp.VALOR_VERDAD)
 
         nodo = NodoÁrbol(TipoNodo.VALOR_VERDAD, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
@@ -543,7 +543,7 @@ class Analizador:
         """
         Comparador ::= (cañazo | poquitico | misma vara | otra vara | menos o igualitico | más o igualitico)
         """
-        self.__verificar_tipo_componente(TipoComponente.COMPARADOR)
+        self.__verificar_tipo_componente(TipoComp.COMPARADOR)
 
         nodo = NodoÁrbol(TipoNodo.COMPARADOR, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
@@ -555,7 +555,7 @@ class Analizador:
 
         Texto ::= ~/\w(\s\w)*)?~
         """
-        self.__verificar_tipo_componente(TipoComponente.TEXTO)
+        self.__verificar_tipo_componente(TipoComp.TEXTO)
 
         nodo = NodoÁrbol(TipoNodo.TEXTO, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
@@ -568,7 +568,7 @@ class Analizador:
 
         Entero ::= (-)?\d+
         """
-        self.__verificar_tipo_componente(TipoComponente.ENTERO)
+        self.__verificar_tipo_componente(TipoComp.ENTERO)
 
         nodo = NodoÁrbol(TipoNodo.ENTERO, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
@@ -581,7 +581,7 @@ class Analizador:
 
         Flotante ::= (-)?\d+.(-)?\d+
         """
-        self.__verificar_tipo_componente(TipoComponente.FLOTANTE)
+        self.__verificar_tipo_componente(TipoComp.FLOTANTE)
 
         nodo = NodoÁrbol(TipoNodo.FLOTANTE, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
@@ -595,7 +595,7 @@ class Analizador:
 
         Identificador ::= [a-z][a-zA-Z0-9]+
         """
-        self.__verificar_tipo_componente(TipoComponente.IDENTIFICADOR)
+        self.__verificar_tipo_componente(TipoComp.IDENTIFICADOR)
 
         nodo = NodoÁrbol(TipoNodo.IDENTIFICADOR, contenido =self.componente_actual.texto)
         self.__pasar_siguiente_componente()
