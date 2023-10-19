@@ -3,9 +3,7 @@
 from enum import Enum, auto
 
 class TipoNodo(Enum):
-    """
-    Describe el tipo de nodo del árbol
-    """
+    
     PROGRAMA              = auto()
     ASIGNACIÓN            = auto()
     EXPRESIÓN_MATEMÁTICA  = auto()
