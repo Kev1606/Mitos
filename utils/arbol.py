@@ -10,10 +10,10 @@ class TipoNodo(Enum):
     EXPRESIÓN             = auto() #
     FUNCIÓN               = auto() #
     INVOCACIÓN            = auto() #
-    PARAMETROS_FUNCION    = auto() #
+    PARAMETROS_FUNCION    = auto() ##
     PARÁMETROS_INVOCACIÓN = auto() #
     INSTRUCCIONES         = auto() #
-    REPETICIÓN            = auto()
+    REPETICIÓN            = auto() 
     BIFURCACION           = auto() #
     TEMIS                 = auto() #
     SINO                  = auto()
