@@ -186,7 +186,7 @@ class Analizador:
         if self.componenteActual.texto == 'ra':
             nodos_nuevos += [self.analizarFuncion()]
         elif self.componenteActual.texto == 'temis':
-            nodos_nuevos += [self.analizarBifurcacion()]  #Falta
+            nodos_nuevos += [self.analizarBifurcacion()]  
         elif self.componenteActual.tipo == TipoComp.TEXTO:
             if self.__componente_venidero().texto == '=':
                 nodos_nuevos += [self.analizarAsignacion()]
@@ -211,7 +211,8 @@ class Analizador:
         nodos_nuevos += [self.analizar_Temis()]
 
         if self.componenteActual.texto == 'atenea':
-            nodos_nuevos += [self.analizarSinoDesicion()]
+            nodos_nuevos += [self.verificarTexto()]
+            self.analizarBloqueInstrucciones()
 
         return NodoÁrbol(TipoNodo.BIFURCACION, nodos=nodos_nuevos)
 
@@ -221,8 +222,7 @@ class Analizador:
         self.verificar('(')
         nodos_nuevos += [self.analizarComparacion()]
         self.verificar(')')
-
-        nodos_nuevos += [self.analizarBloqueInstrucciones()]
+        
         return NodoÁrbol(TipoNodo.TEMIS, nodos=nodos_nuevos)
 
     # Comparacion ::= (Fenix | Numero | Ponto | Texto | Booleano) Operador_Comparativo (Fenix | Numero | Ponto | Texto | Booleano)
