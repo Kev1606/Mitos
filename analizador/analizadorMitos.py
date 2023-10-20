@@ -234,32 +234,6 @@ class Analizador:
         nodos_nuevos += [self.analizarBloqueInstrucciones()]
         return NodoÁrbol(TipoNodo.TEMIS, nodos=nodos_nuevos)
 
-
-    def verificarIdentificador(self):
-        """
-        Verifica si el tipo del componente léxico actuales de tipo
-        IDENTIFICADOR
-
-        Identificador ::= [a-z][a-zA-Z0-9]+
-        """
-        self.verificarTipoComponente(TipoComp.IDENTIFICADOR)
-
-        nodo = NodoÁrbol(TipoNodo.IDENTIFICADOR, contenido =self.componente_actual.texto)
-        self.pasarSiguienteComponente()
-        return nodo
-    
-    def pasarSiguienteComponente(self):
-        """
-        Pasa al siguiente componente léxico
-        """
-        self.posición_componente_actual += 1
-
-        if self.posición_componente_actual >= self.cantidad_componentes:
-            return
-
-        self.componente_actual = \
-                self.componentes_léxicos[self.posición_componente_actual]
-
     def analizarInvocacion(self):
     
         nodos_nuevos = []
@@ -303,6 +277,18 @@ class Analizador:
     ''' 
     ################    FUNCIONES VERIFICAR    ################
     '''
+    def verificarIdentificador(self):
+        """
+        Verifica si el tipo del componente léxico actuales de tipo
+        IDENTIFICADOR
+
+        Identificador ::= [a-z][a-zA-Z0-9]+
+        """
+        self.verificarTipoComponente(TipoComp.IDENTIFICADOR)
+
+        nodo = NodoÁrbol(TipoNodo.IDENTIFICADOR, contenido =self.componente_actual.texto)
+        self.pasarSiguienteComponente()
+        return nodo
     
     # Verifica si el componente lexico actual es una variable
     def verificarVariable(self):
@@ -371,8 +357,7 @@ class Analizador:
         self.siguienteComponente()
         return nodo
     
-    # Verifica que el operador sea alguno de los siguientes
-    # Operador_Mate ::= Operador_Adicion  | Operador_Resta |  Operador_Division | Operador_Multiplicacion 
+    # Verifica que el operador matematico sea el correcto
     def verificarOperador(self):
         
         self.verificarTipoComponente(TipoComp.OPEMATE)
@@ -381,6 +366,9 @@ class Analizador:
         self.siguienteComponente()
 
         return nodo
+    
+    # COMPARADOR
+
     
     '''
     ################    PASAR SIGUIENTE COMPONENTE    ################
