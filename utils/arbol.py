@@ -89,10 +89,10 @@ class ÁrbolSintáxisAbstracta:
     def imprimir_preorden(self):
         self.__preorden(self.raiz)
 
-    def __preorden(self, nodo):
+    def __preorden(self, nodo: NodoÁrbol):
 
         print(nodo)
 
         if nodo is not None:
-            for nodo in nodo.nodos:
-                self.__preorden(nodo)
+            for nodop in nodo.nodos:
+                self.__preorden(nodop)

@@ -27,10 +27,9 @@ def mitos():
         texto = utils.leer_archivo(args.archivo)
         exp = Explorador(texto)
         exp.explorar()
-
         analizador = Analizador(exp.componentes)
         analizador.analizar()
-        analizador.imprimir_arbol()
+        analizador.imprimirArbol()
     else:
         parser.print_help()
 

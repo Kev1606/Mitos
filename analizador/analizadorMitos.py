@@ -27,20 +27,23 @@ class Analizador:
     def imprimirArbol(self):
         self.asa.imprimir_preorden()
 
+    def imprimirLista(self):
+        print(self.componentesLexicos)
+
     # Empieza a analizar la estructura del programa, verifica asignaciones y definiciones de funciones
     def analizarPrograma(self):
-
         nodos_nuevos = []
 
         # analiza si hay asignaciones o funciones
         while (True):
 
+             
             # Si es asignación
-            if self.componenteActual.tipo == TipoComp.TEXTO:
+            if self.componentesLexicos[self.posicionComponenteActual].tipo == TipoComp.TEXTO:
                 nodos_nuevos = [self.analizarAsignacion()]
 
             # Si es función
-            elif (self.componenteActual.texto == 'ra'):
+            elif (self.componentesLexicos[self.posicionComponenteActual].texto == 'ra'):
                 nodos_nuevos += [self.analizarFuncion()]
 
             else:
