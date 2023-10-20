@@ -24,6 +24,9 @@ class Analizador:
     def analizar(self):
         self.asa.raiz = self.analizarPrograma()
 
+    def imprimirArbol(self):
+        self.asa.imprimir_preorden()
+
     # Empieza a analizar la estructura del programa, verifica asignaciones y definiciones de funciones
     def analizarPrograma(self):
 
