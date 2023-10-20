@@ -81,7 +81,7 @@ class Analizador:
                 nodos_nuevos += [self.verificarTexto()]
 
         else:
-            raise SyntaxError('Viejo... acá algo reventó', self.componenteActual)
+            raise SyntaxError('Se cay[o]', self.componenteActual)
 
         return NodoÁrbol(TipoNodo.ASIGNACIÓN, nodos=nodos_nuevos)
     
@@ -160,6 +160,81 @@ class Analizador:
         return NodoÁrbol(TipoComp.FUNCION, \
                 contenido=nodos_nuevos[0].contenido, nodos=nodos_nuevos)
     
+    def analizarParamsFuncion(self):
+        """
+        ParametrosFunción ::= Identificador (/ Identificador)+
+        """
+        nodos_nuevos = []
+        nodos_nuevos += [self.verificarIdentificador()]
+        while self.componente_actual.texto == '/':
+            self.verificar('/')
+            nodos_nuevos += [self.verificarIdentificador()]
+        return NodoÁrbol(TipoNodo.PARAMETROS_FUNCION, nodos=nodos_nuevos)
+
+    def analizarBloqueInstrucciones(self):
+        """
+        BloqueInstrucciones ::= '{' ListaInstrucciones '}'
+        """
+        nodos_nuevos = []
+        self.verificar('{')
+
+        nodos_nuevos += [self.analizarListaInstrucciones()]
+
+        #Puede que falte algo acá
+        while self.componente_actual.texto in ['temis', 'hades', 'sisifo'] or self.componente_actual.tipo == TipoComp.IDENTIFICADOR:
+            nodos_nuevos += [self.analizarListaInstrucciones()]
+        self.verificar('}')
+        
+        return NodoÁrbol(TipoNodo.BLOQUE_INSTRUCCIONES, nodos=nodos_nuevos)
+
+    def analizarListaInstrucciones(self):
+        """
+        Instruccion ::= Funcion | Si_Desicion | (Asignacion | Invocacion) | Retorno | Mientras_Instruccion
+        """
+        nodos_nuevos = []
+
+        if self.componente_actual.texto == 'ra':
+            nodos_nuevos += [self.analizarFuncion()]
+        elif self.componente_actual.texto == 'temis':
+            nodos_nuevos += [self.analizarBifurcacion]  #Falta
+        elif self.componente_actual.tipo == TipoComp.IDENTIFICADOR:
+            if self.__componente_venidero().texto == '=':
+                nodos_nuevos += [self.analizarAsignacion()]
+            else:
+                nodos_nuevos += [self.analizarInvocacion()]
+        elif self.componente_actual.texto == 'hades':
+            nodos_nuevos += [self.analizarRetorno()]    #Falta
+        elif self.componente_actual.texto == 'sisifo':
+            nodos_nuevos += [self.analizarMientras()]   #Falta
+        else:
+            nodos_nuevos += [self.analizarError()]    #Falta
+        
+        return NodoÁrbol(TipoNodo.INSTRUCCIONES, nodos=nodos_nuevos)
+
+    def analizarBifurcacion(self):
+        """
+        Si_Desicion ::= temis ExpresionBloqueInstrucciones (Sino_Desicion)?
+        """
+        nodos_nuevos = []
+        
+        nodos_nuevos += [self.analizar_Temis()]
+
+        if self.componente_actual.texto == 'atenea':
+            nodos_nuevos += [self.analizarSinoDesicion()]
+
+        return NodoÁrbol(TipoNodo.BIFURCACION, nodos=nodos_nuevos)
+
+    def analizar_Temis(self):
+        nodos_nuevos = []
+        self.verificar('temis')
+        self.verificar('(')
+        nodos_nuevos += [self.analizarExpresion()]
+        self.verificar(')')
+
+        nodos_nuevos += [self.analizarBloqueInstrucciones()]
+        return NodoÁrbol(TipoNodo.TEMIS, nodos=nodos_nuevos)
+
+
     def verificarIdentificador(self):
         """
         Verifica si el tipo del componente léxico actuales de tipo
@@ -176,7 +251,6 @@ class Analizador:
     def pasarSiguienteComponente(self):
         """
         Pasa al siguiente componente léxico
-        Esto revienta por ahora
         """
         self.posición_componente_actual += 1
 

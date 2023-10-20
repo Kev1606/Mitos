@@ -1,7 +1,7 @@
 # Analizador de Ciruelas (el lenguaje de programación)
 
 from explorador.ExploradorMitos import TipoComponente, ComponenteLexico
-from utils.árbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
+from utils.arbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
 
 class Analizador:
 
