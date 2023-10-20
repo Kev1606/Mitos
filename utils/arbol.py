@@ -4,18 +4,18 @@ from enum import Enum, auto
 
 class TipoNodo(Enum):
     
-    PROGRAMA              = auto()
-    ASIGNACIÓN            = auto()
-    EXPRESIÓN_MATEMÁTICA  = auto()
-    EXPRESIÓN             = auto()
-    FUNCIÓN               = auto()
-    INVOCACIÓN            = auto()
-    PARÁMETROS_FUNCIÓN    = auto()
-    PARÁMETROS_INVOCACIÓN = auto()
-    INSTRUCCIÓN           = auto()
+    MASTER                = auto() #
+    ASIGNACIÓN            = auto() #
+    EXPRESIÓN_MATEMÁTICA  = auto() #
+    EXPRESIÓN             = auto() #
+    FUNCIÓN               = auto() #
+    INVOCACIÓN            = auto() #
+    PARAMETROS_FUNCION    = auto() #
+    PARÁMETROS_INVOCACIÓN = auto() #
+    INSTRUCCIONES         = auto() #
     REPETICIÓN            = auto()
-    BIFURCACIÓN           = auto()
-    DIAYSI                = auto()
+    BIFURCACION           = auto() #
+    TEMIS                 = auto() #
     SINO                  = auto()
     OPERADOR_LÓGICO       = auto()
     CONDICIÓN             = auto()
@@ -23,14 +23,15 @@ class TipoNodo(Enum):
     RETORNO               = auto()
     ERROR                 = auto()
     PRINCIPAL             = auto()
-    BLOQUE_INSTRUCCIONES  = auto()
-    OPERADOR              = auto()
-    VALOR_VERDAD          = auto()
+    BLOQUE_INSTRUCCIONES  = auto() #
+    OPEMATE               = auto() #
     COMPARADOR            = auto()
-    TEXTO                 = auto()
-    ENTERO                = auto()
-    FLOTANTE              = auto()
-    IDENTIFICADOR         = auto()
+    VARIABLE              = auto() #
+    BOOLEANO              = auto() #
+    TEXTO                 = auto() #
+    ENTERO                = auto() #
+    FLOTANTE              = auto() #
+    IDENTIFICADOR         = auto() #
 
 import copy
 
