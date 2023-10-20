@@ -1,5 +1,5 @@
-from explorador.explorador import TipoComp, ComponenteLéxico
-from utils.árbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
+from explorador.ExploradorMitos import TipoComp, ComponenteLexico
+from utils.arbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
 
 class Analizador:
 
@@ -8,7 +8,7 @@ class Analizador:
     componentesLexicos : list
     cantidadComponentes: int
     posicionComponenteActual : int
-    componenteActual : ComponenteLéxico
+    componenteActual : ComponenteLexico
 
     def __init__(self, listaComponentes):
 
@@ -146,6 +146,46 @@ class Analizador:
 
         return NodoÁrbol(TipoNodo.EXPRESIÓN , nodos=nodos_nuevos)
     
+    def analizarFuncion(self):
+        """
+        Función ::=  ra Identificador (ParámetrosFunción) BloqueInstrucciones
+        """
+        nodosNuevos = []
+        self.verificar("ra")
+        nodosNuevos += [self.verificarIdentificador()]
+        self.verificar("(")
+        nodos_nuevos += [self.analizarParamsFuncion()]
+        self.verificar(')')
+        nodos_nuevos += [self.analizarBloqueInstrucciones()]
+        return NodoÁrbol(TipoComp.FUNCION, \
+                contenido=nodos_nuevos[0].contenido, nodos=nodos_nuevos)
+    
+    def verificarIdentificador(self):
+        """
+        Verifica si el tipo del componente léxico actuales de tipo
+        IDENTIFICADOR
+
+        Identificador ::= [a-z][a-zA-Z0-9]+
+        """
+        self.verificarTipoComponente(TipoComp.IDENTIFICADOR)
+
+        nodo = NodoÁrbol(TipoNodo.IDENTIFICADOR, contenido =self.componente_actual.texto)
+        self.pasarSiguienteComponente()
+        return nodo
+    
+    def pasarSiguienteComponente(self):
+        """
+        Pasa al siguiente componente léxico
+        Esto revienta por ahora
+        """
+        self.posición_componente_actual += 1
+
+        if self.posición_componente_actual >= self.cantidad_componentes:
+            return
+
+        self.componente_actual = \
+                self.componentes_léxicos[self.posición_componente_actual]
+
     def analizarInvocacion(self):
     
         nodos_nuevos = []
@@ -281,8 +321,11 @@ class Analizador:
             return
 
         self.componenteActual = self.componentesLexicos[self.posicionComponenteActual]
-    
-    # Retorna el componente siguiente del actual
-    def componentePorVenir(self, avance=1):
-        
+
+    def __componente_venidero(self, avance=1):
+        """
+        Retorna el componente léxico que está 'avance' posiciones más
+        adelante... por default el siguiente. Esto sin adelantar el
+        contador del componente actual.
+        """
         return self.componentes_léxicos[self.posición_componente_actual+avance]

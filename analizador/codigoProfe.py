@@ -1,6 +1,6 @@
 # Analizador de Ciruelas (el lenguaje de programación)
 
-from explorador.explorador import TipoComponente, ComponenteLéxico
+from explorador.ExploradorMitos import TipoComponente, ComponenteLexico
 from utils.árbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
 
 class Analizador:
@@ -8,7 +8,7 @@ class Analizador:
     componentes_léxicos : list
     cantidad_componentes: int
     posición_componente_actual : int
-    componente_actual : ComponenteLéxico
+    componente_actual : ComponenteLexico
 
     def __init__(self, lista_componentes):
 
