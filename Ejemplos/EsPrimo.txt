@@ -5,10 +5,10 @@ ra es_primo(fenix #n){
 	};
 	fenix #i = 2;
 	sisifo (i<= raizQ(n)){
-		temis (n % i == 0) atenea{
+		temis ((n % i) == 0) atenea{
 			hades  Falso;
 		};
-		i = i*1;
+		i = (i*1);
 	};
 	hades Verdadero;
 };

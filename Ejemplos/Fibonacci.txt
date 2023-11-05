@@ -6,7 +6,7 @@ ra cant_fibonacci(fenix #n){
 	fenix #auxiliar = 0;
 		sisifo (contador < n){
 			auxiliar= siguiente;
-			siguiente = actual + siguiente;
+			siguiente = (actual + siguiente);
 			actual = auxiliar;
 			contador += 1;
 		};

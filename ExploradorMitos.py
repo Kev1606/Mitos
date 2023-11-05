@@ -51,18 +51,19 @@ class Explorador:
     # clase que procesa el codigo y genera los componentes lexicos
     texto: str
     componentes = []
-
+    
+    # (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<|\>|\<\=|\>\=)')
     descriptores = [
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra\s+)'),
         (TipoComp.PUNTUACION, r'^;'),
-        (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<|\>|\<\=|\>\=)'),
+        (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<\=|\>\=|\<|\>)'),
         (TipoComp.PARENTESIS, r'^([ \( | \) | \{ | \} ])'),    
         (TipoComp.COMENTARIO, r'^(\-\-\s*)([a-zA-Z0-9_-]+)'),
         (TipoComp.CONDICIONAL, r'^(temis|atenea)'),
         (TipoComp.REPETICION, r'^(sisifo)'),
         (TipoComp.ASIGNACION, r'^='),
-        (TipoComp.OPEMATE, r'^(\+|\-|\//|\/|\*|raizQ|\%)'),
+        (TipoComp.OPEMATE, r'^(\+|\-|\//|\/|\*|\%)'),
         (TipoComp.TIPO,r'^(fenix|unicornio|ponto|supay)'),
         (TipoComp.CONSTANTE, r'^(!)'),
         (TipoComp.VARIABLE,r'^(#+)([a-zA-Z0-9_-]+)'),
@@ -70,7 +71,7 @@ class Explorador:
         (TipoComp.ENTERO, r'^[0-9]+'),
         (TipoComp.FLOTANTE, r'^(-?[0-9]+\.[0-9]+)'),
         (TipoComp.RETORNO,r'^(hades)'),
-        (TipoComp.TEXTO,r'^([a-zA-Z0-9_-]+)'),
+        (TipoComp.TEXTO,r'^([a-zA-Z0-9_]+)'),
         (TipoComp.GLOBAL,r'^(global)'),
         (TipoComp.STRING,r'^["\'](.+)*["\']')
     ]
@@ -95,7 +96,9 @@ class Explorador:
         for componente in self.componentes:
             print(componente)   # Esto funciona por que el print llama al
                                 # método __str__ de la instancia 
-
+    
+    def getComponentes(self):
+        return self.componentes
     
     def procesarLinea(self, linea: str, numLinea: int):
         componentes = []

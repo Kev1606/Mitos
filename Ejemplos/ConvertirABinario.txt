@@ -1,14 +1,14 @@
 -- convertir número a binario
 ra decimal_a_binario(fenix #n){
-	temis (n==0) atenea{
+	temis  atenea{
 		hades "0";
 	};
 	unicornio #resultado = "";
 	fenix #resto = 0;
 	sisifo (n > 0){
-		resto = n%2;
-		resultado = proteo(resto) + resultado;
-		n = n // 2;
+		resto = (n%2);
+		resultado = (proteo(resto) + resultado);
+		n = (n // 2);
 	};
 	hades resultado;
 };

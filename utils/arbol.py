@@ -32,6 +32,8 @@ class TipoNodo(Enum):
     ENTERO                = auto() #
     FLOTANTE              = auto() #
     IDENTIFICADOR         = auto() #
+    TIPO                  = auto()
+    STRING                = auto()
 
 import copy
 

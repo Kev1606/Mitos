@@ -2,8 +2,8 @@
 ra factorial(fenix #n){
 	fenix #resultado = 1;
 	sisifo (n>1){
-		resultado = resultado*n;
-		n = n-1;
+		resultado = (resultado*n);
+		n = (n-1);
 	};
 	hades resultado;
 };
