@@ -1,6 +1,6 @@
 -- convertir número a binario
 ra decimal_a_binario(fenix #n){
-	temis  atenea{
+	temis (n==0) atenea{
 		hades "0";
 	};
 	unicornio #resultado = "";
