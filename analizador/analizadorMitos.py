@@ -175,7 +175,7 @@ class Analizador:
         nodosNuevos += [self.analizarParametrosInvocacion()]
         self.verificar(')')
         nodosNuevos += [self.analizarBloqueInstrucciones()]
-        return NodoÁrbol(TipoComp.FUNCION, \
+        return NodoÁrbol(TipoNodo.FUNCIÓN, \
                 contenido=nodosNuevos[0].contenido, nodos=nodosNuevos)
     
     
