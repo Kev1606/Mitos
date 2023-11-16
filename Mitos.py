@@ -3,6 +3,7 @@
 from cargarArchivo import cargarArchivo as utils
 from ExploradorMitos import Explorador
 from analizador.analizadorMitos import Analizador
+from Verificador.verificadorMitos import Verificador
 
 import argparse
 
@@ -13,6 +14,9 @@ parser.add_argument('--solo-explorar', dest='explorador', action='store_true',
 
 parser.add_argument('--solo-analizar', dest='analizador', action='store_true',
                     help='Solo ejecutar el analizador y retorna un preorden del arbol sintactico')
+
+parser.add_argument('--solo-verificar', dest='verificador', action='store_true',
+                    help='Solo ejecutar el verificador y retorna un preorden del arbol sintactico y  y estructuras de apoyo generadas en la verificación')
 
 parser.add_argument('archivo', help='Archivo de código fuente')
 
@@ -30,6 +34,15 @@ def mitos():
         analizador = Analizador(exp.componentes)
         analizador.analizar()
         analizador.imprimirArbol()
+    elif args.verificador is True:
+        texto = utils.leer_archivo(args.archivo)
+        exp = Explorador(texto)
+        exp.explorar()
+        analizador = Analizador(exp.componentes)
+        analizador.analizar()
+        verificador = Verificador(analizador.asa)
+        verificador.verificar()
+        verificador.imprimir_asa()
     else:
         parser.print_help()
 

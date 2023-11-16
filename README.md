@@ -25,3 +25,15 @@ Para utilizar este explorador en tu proyecto de compilador, sigue estos pasos:
 4. Importa las clases y funciones necesarias desde ExploradorMitos.py en tu proyecto principal (Mitos.py) y utilízalas para analizar el código fuente.
 
 5. Ejecuta el archivo Mitos.py para iniciar el proceso de exploración léxica y obtener los componentes léxicos necesarios para tu compilador.
+
+
+## Ejecución
+
+Para ejecutar el explorador/analizador/verificador, sigue estos pasos:
+`python mitos.py --solo-TIPO ./Ejemplos/ARCHIVO.txt`
+
+Donde TIPO es el tipo de componente léxico que deseas obtener y ARCHIVO es el nombre del archivo de código fuente que deseas analizar.
+TIPO puede ser uno de los siguientes:
+- explorar
+- analizar
+- verificar
