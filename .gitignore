@@ -1,3 +1,4 @@
 # Ignorar el directorio __pycache__ y archivos que comiencen con 'temp'
 __pycache__/
 temp*
+*.cpython-36.pyc
