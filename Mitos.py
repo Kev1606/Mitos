@@ -40,7 +40,7 @@ def mitos():
         exp.explorar()
         analizador = Analizador(exp.componentes)
         analizador.analizar()
-        verificador = Verificador(analizador.asa)
+        verificador = Verificador(analizador.getASA())
         verificador.verificar()
         verificador.imprimir_asa()
     else:

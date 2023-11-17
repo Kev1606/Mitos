@@ -29,6 +29,9 @@ class Analizador:
 
     def imprimirLista(self):
         print(self.componentesLexicos)
+    
+    def getASA(self):
+        return self.asa
 
     # Empieza a analizar la estructura del programa, verifica asignaciones y definiciones de funciones
     def analizarPrograma(self):
