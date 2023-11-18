@@ -46,7 +46,7 @@ class NodoÁrbol:
     def __init__(self, tipo, contenido = None, nodos = [], atributos = {}):
 
         self.tipo      = tipo
-        self.contenido = contenido
+        self.contenido = contenido.replace('#', '') if contenido is not None else None
         self.nodos     = nodos
         self.atributos = copy.deepcopy(atributos)
 

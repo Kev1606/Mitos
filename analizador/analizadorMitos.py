@@ -92,6 +92,13 @@ class Analizador:
             raise SyntaxError('Se cay[o]', self.componenteActual.texto)
 
         return NodoÁrbol(TipoNodo.ASIGNACIÓN, nodos=nodosNuevos)
+
+    def analizarAsignacionFuncion(self):
+        nodosNuevos = []
+        nodosNuevos += [self.analizarParametro()]
+        nodosNuevos += [self.verificarVariable()]
+
+        return NodoÁrbol(TipoNodo.ASIGNACIÓN, nodos=nodosNuevos)
     
     # analiza que tipo de componente es
     # Tipo ::= ['fenix' | 'unicornio' | 'ponto' | 'supay']   EN EL EXPLORADOR NO SE UTILIZA UNICORNIO, SINO TEXTO
@@ -345,13 +352,16 @@ class Analizador:
         nodosNuevos = []
 
         # Fijo un valor tiene que haber
-        nodosNuevos += [self.analizarParametro()]
-        nodosNuevos += [self.verificarVariable()]
+        # tendria que crear el TipoNodo.ASIGNACION antes de lo siguiente
+        nodosNuevos += [self.analizarAsignacionFuncion()]
+        # nodosNuevos += [self.analizarParametro()]
+        # nodosNuevos += [self.verificarVariable()]
 
         while( (self.componenteActual.texto).strip() == ','):
             self.verificar(',')
-            nodosNuevos += [self.analizarParametro()]
-            nodosNuevos += [self.verificarVariable()]
+            nodosNuevos += [self.analizarAsignacionFuncion()]
+            # nodosNuevos += [self.analizarParametro()]
+            # nodosNuevos += [self.verificarVariable()]
         # Esto funciona con lógica al verrís... Si no revienta con error
         # asumimos que todo bien y seguimos.
 
@@ -440,7 +450,11 @@ class Analizador:
         
         if self.componenteActual.tipo is TipoComp.VARIABLE:
             self.verificarTipoComponente(TipoComp.VARIABLE)
-            nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip())
+            print(self.componentesLexicos[self.posicionComponenteActual-1])
+            if self.componentesLexicos[self.posicionComponenteActual-1].tipo == TipoComp.TIPO:
+                nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+            else:
+                nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip())
             self.siguienteComponente()
         
         elif self.componenteActual.tipo is TipoComp.TEXTO:

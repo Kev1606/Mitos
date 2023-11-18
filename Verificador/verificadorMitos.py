@@ -170,14 +170,16 @@ class Visitante:
         """
         Visita el nodo de asignacion
         """
-        self.tablaSimbolos.nuevoRegistro(nodoActual.nodos[0])
+        # REVISAR PORQUE EN LAS ASIGNACIONES VA DIFERENTE PARA LAS DE PARAMETROS
+        # EN PARAMETROS ES .nodos[1] y en las normales es .nodos[0]
+        self.tablaSimbolos.nuevoRegistro(nodoActual.nodos[1])
 
         for hijo in nodoActual.nodos:
             hijo.visitar(self)
 
         # Si es una funcion
-        nodoActual.atributos["tipo"] = nodoActual.nodos[1].atributos["tipo"]
-        nodoActual.nodos[0].atributos["tipo"] = nodoActual.nodos[1].atributos[
+        nodoActual.atributos["tipo"] = nodoActual.nodos[0].atributos["tipo"]
+        nodoActual.nodos[0].atributos["tipo"] = nodoActual.nodos[0].atributos[
             "tipo"
         ]
 
@@ -391,6 +393,7 @@ class Visitante:
         Visita el nodo de variable
         """
         check = self.tablaSimbolos.verificarExistencia(nodoActual.contenido)
+        print(nodoActual.atributos["tipo"])
         nodoActual.atributos["tipo"] = check["referencia"].atributos["tipo"]
 
     def visitarOpeMate(self, nodoActual):
@@ -413,7 +416,12 @@ class Visitante:
         Visita el nodo de tipo
         """
         # nodoActual.atributos["tipo"] = TipoDatos.TIPO
-        pass
+        if nodoActual.contenido == "fenix":
+            nodoActual.atributos["tipo"] = TipoDatos.NUMERO
+        elif nodoActual.contenido == "unicornio":
+            nodoActual.atributos["tipo"] = TipoDatos.TEXTO
+        else:
+            nodoActual.atributos["tipo"] = TipoDatos.CUALQUIERA
 
     def visitarTemis(self, nodoActual):
         """
