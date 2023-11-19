@@ -6,3 +6,14 @@ class Generador:
     ambienteEstandar = ""
     def __init__(self, nuevoASA: ÁrbolSintáxisAbstracta):
         self.asa = nuevoASA
+        self.visitador = VisitantePython()
+        def imprimirASA(self):
+            "Claramente imprime el ASA"
+            if self.asa.raiz is None:
+                print([])
+            else:
+                self.asa.__preorden()
+        def generar(self):
+            resultado = self.visitador.visitar(self.asa.raiz)
+            print(self.ambienteEstandar)
+            print(resultado)
