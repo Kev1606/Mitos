@@ -102,6 +102,7 @@ class Analizador:
     
     # analiza que tipo de componente es
     # Tipo ::= ['fenix' | 'unicornio' | 'ponto' | 'supay']   EN EL EXPLORADOR NO SE UTILIZA UNICORNIO, SINO TEXTO
+    # HAY QUE ACOMODAR ALGO ACA (CREO)
     # analizar_Literal del profe
     def analizarTipo(self):
 
@@ -364,7 +365,6 @@ class Analizador:
             # nodosNuevos += [self.verificarVariable()]
         # Esto funciona con lógica al verrís... Si no revienta con error
         # asumimos que todo bien y seguimos.
-
         return NodoÁrbol(TipoNodo.PARÁMETROS_INVOCACIÓN , nodos=nodosNuevos)
     
     def analizarRetorno(self):
@@ -431,10 +431,17 @@ class Analizador:
     # Verifica si el componente actual es de tipo TEXTO 
     # Texto::= [a-zA-Z0-9_]+        Texto ::= .+ ES UNA EXPRESION QUE PERMITE CUALQUIER COMBINACION DE CARACTERES
     def verificarTexto(self):
-        
         self.verificarTipoComponente(TipoComp.TEXTO)
-
-        nodo = NodoÁrbol(TipoNodo.TEXTO, contenido=(self.componenteActual.texto).strip())
+        if self.componentesLexicos[self.posicionComponenteActual-1].tipo == TipoComp.TIPO:
+            if self.componentesLexicos[self.posicionComponenteActual-1].texto == 'fenix':
+                nodo = NodoÁrbol(TipoNodo.ENTERO, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+            elif self.componentesLexicos[self.posicionComponenteActual-1].texto == 'unicornio':
+                nodo = NodoÁrbol(TipoNodo.TEXTO, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+            elif self.componentesLexicos[self.posicionComponenteActual-1].texto == 'ponto':
+                nodo = NodoÁrbol(TipoNodo.BOOLEANO, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+            # nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+        else:
+            nodo = NodoÁrbol(TipoNodo.TEXTO, contenido=(self.componenteActual.texto).strip())
         self.siguienteComponente()
         return nodo
 
@@ -450,9 +457,15 @@ class Analizador:
         
         if self.componenteActual.tipo is TipoComp.VARIABLE:
             self.verificarTipoComponente(TipoComp.VARIABLE)
-            print(self.componentesLexicos[self.posicionComponenteActual-1])
+            # print(self.componentesLexicos[self.posicionComponenteActual-1])
             if self.componentesLexicos[self.posicionComponenteActual-1].tipo == TipoComp.TIPO:
-                nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+                if self.componentesLexicos[self.posicionComponenteActual-1].texto == 'fenix':
+                    nodo = NodoÁrbol(TipoNodo.ENTERO, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+                elif self.componentesLexicos[self.posicionComponenteActual-1].texto == 'unicornio':
+                    nodo = NodoÁrbol(TipoNodo.TEXTO, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+                elif self.componentesLexicos[self.posicionComponenteActual-1].texto == 'ponto':
+                    nodo = NodoÁrbol(TipoNodo.BOOLEANO, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
+                    # nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip(), atributos={'tipo': self.componentesLexicos[self.posicionComponenteActual-1].tipo})
             else:
                 nodo = NodoÁrbol(TipoNodo.VARIABLE, contenido=(self.componenteActual.texto).strip())
             self.siguienteComponente()

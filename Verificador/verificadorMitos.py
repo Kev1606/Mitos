@@ -318,6 +318,9 @@ class Visitante:
             hijo.visitar(self)
 
         primerValor = nodoActual.nodos[0]
+        # print(primerValor.atributos["tipo"])
+        # if self.tablaSimbolos.simbolos['nombre'] == primerValor.contenido and ['referencia'].atributos is not {}:
+        #     primerValor.atributos["tipo"] = TipoDatos.NUMERO
         comparador = nodoActual.nodos[1]
         segundoValor = nodoActual.nodos[2]
 
@@ -361,8 +364,9 @@ class Visitante:
         nodoActual.atributos["tipo"] = TipoDatos.NINGUNO
 
         for hijo in nodoActual.nodos:
-            if hijo.atributos["tipo"] != TipoDatos.NINGUNO:
-                nodoActual.atributos["tipo"] = hijo.atributos["tipo"]
+            if hijo.atributos != {}:
+                if hijo.atributos["tipo"] != TipoDatos.NINGUNO:
+                    nodoActual.atributos["tipo"] = hijo.atributos["tipo"]
 
     def visitarBooleano(self, nodoActual):
         """
@@ -374,6 +378,12 @@ class Visitante:
         """
         Visita el nodo de texto
         """
+        for simbolos in self.tablaSimbolos.simbolos:
+            if simbolos["nombre"] == nodoActual.contenido:
+                # print(simbolos["referencia"].atributos)
+                if simbolos["referencia"].atributos != {}:
+                    nodoActual.atributos["tipo"] = simbolos["referencia"].atributos["tipo"]
+                    return
         nodoActual.atributos["tipo"] = TipoDatos.TEXTO
 
     def visitarEntero(self, nodoActual):
@@ -393,7 +403,7 @@ class Visitante:
         Visita el nodo de variable
         """
         check = self.tablaSimbolos.verificarExistencia(nodoActual.contenido)
-        print(nodoActual.atributos["tipo"])
+        # print(nodoActual.atributos["tipo"])
         nodoActual.atributos["tipo"] = check["referencia"].atributos["tipo"]
 
     def visitarOpeMate(self, nodoActual):
