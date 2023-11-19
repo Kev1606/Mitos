@@ -431,6 +431,13 @@ class Visitante:
         for hijo in nodoActual.nodos:
             hijo.visitar(self)
 
+    def visitarComparador(self, nodoActual):
+        """
+        Comparador::= (==|<=|>=|>|<)
+        """
+        nodoActual.atributos["tipo"] = TipoDatos.COMPARADOR
+        for hijo in nodoActual.nodos:
+            hijo.visitar(self)
 
 class Verificador:
     asa: ÁrbolSintáxisAbstracta

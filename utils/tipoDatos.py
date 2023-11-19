@@ -7,4 +7,5 @@ class TipoDatos(Enum):
     FLOTANTE = auto()
     BOOLEANO = auto()
     CUALQUIERA = auto()
+    COMPARADOR = auto()
     NINGUNO = auto()
