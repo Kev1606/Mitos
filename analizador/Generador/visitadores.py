@@ -4,8 +4,71 @@ class VisitantePython:
     tabuladores = 0
     def visitar(self, nodo: TipoNodo):
         resultado = ""
-    """ Aquí tendrán que ir las comparaciones basadas en lo 
-     que venga del verificador cuando estén listas."""
+        if nodo.tipo is TipoNodo.MASTER:
+            resultado = self.visitarMaster(nodo)
+        elif nodo.tipo is TipoNodo.ASIGNACIÓN:
+            resultado = self.visitarAsignacion(nodo)
+        elif nodo.tipo is TipoNodo.EXPRESIÓN_MATEMÁTICA:
+            resultado = self.visitarExpresionMatematica(nodo)
+        elif nodo.tipo is TipoNodo.EXPRESIÓN:
+            resultado = self.visitarExpresion(nodo)
+        elif nodo.tipo is TipoNodo.FUNCIÓN:
+            resultado = self.visitarFuncion(nodo)
+        elif nodo.tipo is TipoNodo.INVOCACIÓN:
+            resultado = self.visitarInvocacion(nodo)
+        elif nodo.tipo is TipoNodo.PARAMETROS_FUNCION:
+            resultado = self.visitarParametrosFuncion(nodo)
+        elif nodo.tipo is TipoNodo.PARÁMETROS_INVOCACIÓN:
+            resultado = self.visitarParametrosInvocacion(nodo)
+        elif nodo.tipo is TipoNodo.INSTRUCCIONES:
+            resultado = self.visitarInstruccion(nodo)
+        elif nodo.tipo is TipoNodo.REPETICIÓN:
+            resultado = self.visitarRepeticion(nodo)
+        elif nodo.tipo is TipoNodo.BIFURCACION:
+            resultado = self.visitarBifurcacion(nodo)
+        elif nodo.tipo is TipoNodo.TEMIS:
+            resultado = self.visitarTemis(nodo)
+        elif nodo.tipo is TipoNodo.SINO:
+            resultado = self.visitarSino(nodo)
+        elif nodo.tipo is TipoNodo.OPERADOR_LÓGICO:
+            resultado = self.visitarOperadorLogico(nodo)
+        elif nodo.tipo is TipoNodo.CONDICIÓN:
+            resultado = self.visitarCondicion(nodo)
+        elif nodo.tipo is TipoNodo.COMPARACIÓN:
+            resultado = self.visitarComparacion(nodo)
+        elif nodo.tipo is TipoNodo.RETORNO:
+            resultado = self.visitarRetorno(nodo)
+        elif nodo.tipo is TipoNodo.ERROR:
+            resultado = self.visitarError(nodo)
+        elif nodo.tipo is TipoNodo.PRINCIPAL:
+            resultado = self.visitarPrincipal(nodo)
+        elif nodo.tipo is TipoNodo.BLOQUE_INSTRUCCIONES:
+            resultado = self.visitarBloqueInstrucciones(nodo)
+        elif nodo.tipo is TipoNodo.OPEMATE:
+            resultado = self.visitarOpeMate(nodo)
+        elif nodo.tipo is TipoNodo.COMPARADOR:
+            resultado = self.visitarComparador(nodo)
+        elif nodo.tipo is TipoNodo.VARIABLE:
+            resultado = self.visitarVariable(nodo)
+        elif nodo.tipo is TipoNodo.BOOLEANO:
+            resultado = self.visitarBooleano(nodo)
+        elif nodo.tipo is TipoNodo.TEXTO:
+            resultado = self.visitarTexto(nodo)
+        elif nodo.tipo is TipoNodo.ENTERO:
+            resultado = self.visitarEntero(nodo)
+        elif nodo.tipo is TipoNodo.FLOTANTE:
+            resultado = self.visitarFlotante(nodo)
+        elif nodo.tipo is TipoNodo.IDENTIFICADOR:
+            resultado = self.visitarIdentificador(nodo)
+        elif nodo.tipo is TipoNodo.TIPO:
+            resultado = self.visitarTipo(nodo)
+        elif nodo.tipo is TipoNodo.STRING:
+            resultado = self.visitarString(nodo)
+        else:
+            raise Exception("Error")
+        return resultado
+    def visitarMaster(self, nodoActual):
+        return
     def visitarAsignacion(self, nodoActual):
         return
     def visitarExpresionMatematica(self, nodoActual):
