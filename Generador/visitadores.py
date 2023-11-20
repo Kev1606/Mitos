@@ -172,7 +172,7 @@ class VisitantePython:
         return
 
     def visitarOpeMate(self, nodoActual):
-        return
+        return nodoActual.contenido
 
     def visitarComparador(self, nodoActual):
         return nodoActual.contenido
