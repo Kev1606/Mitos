@@ -473,10 +473,6 @@ class Verificador:
     def cargarAmbiente(self):
         funciones_estandar = [
             ("proteo", TipoDatos.TEXTO)
-            # ("viene_bolita", TipoDatos.TEXTO),
-            # ("trome", TipoDatos.NÚMERO),
-            # ("sueltele", TipoDatos.NINGUNO),
-            # ("echandi_jiménez", TipoDatos.TEXTO),
         ]
 
         for nombre, tipo in funciones_estandar:
