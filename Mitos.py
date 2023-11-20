@@ -4,7 +4,7 @@ from cargarArchivo import cargarArchivo as utils
 from ExploradorMitos import Explorador
 from analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
-from Generador.generadorMitos import Generador
+# from Generador.generadorMitos import Generador
 import argparse
 
 parser = argparse.ArgumentParser(description='Intérprete para Mitos')
@@ -27,7 +27,7 @@ def mitos():
     args = parser.parse_args()
     if args.explorador is True:
         texto = utils.leer_archivo(args.archivo)
-        
+
         exp = Explorador(texto)
         exp.explorar()
         exp.imprimir_componentes()
@@ -51,7 +51,7 @@ def mitos():
 
         verificador = Verificador(analizador.getASA())
         verificador.verificar()
-        verificador.imprimir_asa()
+        verificador.imprimirArbol()
     elif args.python is True:
         texto = utils.leer_archivo(args.archivo)
         exp = Explorador(texto)
@@ -63,8 +63,8 @@ def mitos():
         verificador = Verificador(analizador.getASA())
         verificador.verificar()
 
-        generador = Generador(verificador.getASA())
-        generador.generar()
+        # generador = Generador(verificador.getASA())
+        # generador.generar()
     else:
         parser.print_help()
 
