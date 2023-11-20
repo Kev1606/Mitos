@@ -185,4 +185,4 @@ class VisitantePython:
         return
 
     def visitarString(self, nodoActual):
-        return
+        return nodoActual.contenido
