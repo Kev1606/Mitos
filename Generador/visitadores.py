@@ -72,9 +72,11 @@ class VisitantePython:
         return resultado
 
     def visitarMaster(self, nodoActual):
-        return
+        return ""
 
     def visitarAsignacion(self, nodoActual):
+        asignacion = """{} = {}"""
+        
         return
 
     def visitarExpresionMatematica(self, nodoActual):
@@ -93,13 +95,31 @@ class VisitantePython:
         return funcion.format(elementos[0],elementos[1], '\n'.join(elementos[2]))
     
     def visitarInvocacion(self, nodoActual):
-        return
+        invocacion = """{}({})"""
+
+        elementos = []
+        for nodo in nodoActual.nodos:
+            elementos += [nodo.visitar(self)]
+        
+        return invocacion.format(elementos[0],elementos[1])
 
     def visitarParametrosInvocacion(self, nodoActual):
-        return
+        params = """{}"""
+        
+        elementos = []
+        for nodo in nodoActual.nodos:
+            elementos += [nodo.visitar(self)]
+        
+        return params.format(elementos[0],','.join(elementos[1])) #tengo dudas
 
     def visitarParametrosFuncion(self, nodoActual):
-        return
+        params = """{}"""
+        
+        elementos = []
+        for nodo in nodoActual.nodos:
+            elementos += [nodo.visitar(self)]
+        
+        return params.format(elementos[0],','.join(elementos[1])) #tengo dudas
 
     def visitarInstruccion(self, nodoActual):
         return
@@ -117,7 +137,7 @@ class VisitantePython:
         return
 
     def visitarOperadorLogico(self, nodoActual):
-        return
+        return nodoActual.contenido
 
     def visitarCondicion(self, nodoActual):
         return
