@@ -100,6 +100,16 @@ class Analizador:
 
         return NodoÁrbol(TipoNodo.ASIGNACIÓN, nodos=nodosNuevos)
     
+    def analizarDiferente(self):
+        nodosNuevos = []
+        nodosNuevos += [self.analizarParametro()]
+        nodosNuevos += [self.verificarVariable()]
+        if self.componenteActual.texto == '=':
+            self.verificar('=')
+            nodosNuevos += [self.analizarParametro()]
+
+        return NodoÁrbol(TipoNodo.ASIGNACIÓN, nodos=nodosNuevos)
+    
     # analiza que tipo de componente es
     # Tipo ::= ['fenix' | 'unicornio' | 'ponto' | 'supay']   EN EL EXPLORADOR NO SE UTILIZA UNICORNIO, SINO TEXTO
     # HAY QUE ACOMODAR ALGO ACA (CREO)
@@ -229,8 +239,9 @@ class Analizador:
             else:
                 nodosNuevos += [self.analizarInvocacion()]
         elif self.componenteActual.tipo == TipoComp.TIPO:
-            nodosNuevos += [self.analizarTipo()]
-            nodosNuevos += [self.analizarAsignacion()]
+            # nodosNuevos += [self.analizarTipo()]
+            # nodosNuevos += [self.analizarAsignacion()]
+            nodosNuevos += [self.analizarDiferente()]
         elif (self.componenteActual.texto).strip() == 'hades':
             nodosNuevos += [self.analizarRetorno()]
         elif (self.componenteActual.texto).strip() == 'sisifo':
@@ -389,6 +400,9 @@ class Analizador:
         
         elif self.componenteActual.tipo is TipoComp.STRING:
             nodo = self.verificarString()
+
+        elif self.componenteActual.tipo is TipoComp.ENTERO:
+            nodo = self.verificarEntero()
         
         elif (self.componenteActual.texto).strip() == '(':
             nodo = self.analizarExpresionMatematica()

@@ -172,6 +172,8 @@ class Visitante:
         """
         # REVISAR PORQUE EN LAS ASIGNACIONES VA DIFERENTE PARA LAS DE PARAMETROS
         # EN PARAMETROS ES .nodos[1] y en las normales es .nodos[0]
+        if nodoActual.nodos.__len__() == 1:
+            return
         self.tablaSimbolos.nuevoRegistro(nodoActual.nodos[1])
 
         for hijo in nodoActual.nodos:
@@ -179,9 +181,7 @@ class Visitante:
 
         # Si es una funcion
         nodoActual.atributos["tipo"] = nodoActual.nodos[0].atributos["tipo"]
-        nodoActual.nodos[0].atributos["tipo"] = nodoActual.nodos[0].atributos[
-            "tipo"
-        ]
+        nodoActual.nodos[0].atributos["tipo"] = nodoActual.nodos[0].atributos["tipo"]
 
     def visitarExpresionMatematica(self, nodoActual):
         """
@@ -221,9 +221,7 @@ class Visitante:
         """
         Visita el nodo de invocacion
         """
-        check = self.tablaSimbolos.verificarExistencia(
-            nodoActual.nodos[0].contenido
-        )
+        check = self.tablaSimbolos.verificarExistencia(nodoActual.nodos[0].contenido)
 
         if check["referencia"].tipo is not TipoNodo.FUNCIÓN:
             raise Exception(
@@ -262,7 +260,8 @@ class Visitante:
         """
         for hijo in nodoActual.nodos:
             hijo.visitar(self)
-            nodoActual.atributos["tipo"] = hijo.atributos["tipo"]
+            if hijo.atributos != {}:
+                nodoActual.atributos["tipo"] = hijo.atributos["tipo"]
 
     def visitarRepeticion(self, nodoActual):
         """
@@ -274,8 +273,8 @@ class Visitante:
 
         self.tablaSimbolos.cerrarBloque()
 
-        #print("hola", nodoActual)
-        #nodoActual.atributos["tipo"] = nodoActual.nodos[1].atributos["tipo"]
+        # print("hola", nodoActual)
+        # nodoActual.atributos["tipo"] = nodoActual.nodos[1].atributos["tipo"]
 
     def visitarBifurcacion(self, nodoActual):
         """
@@ -349,9 +348,7 @@ class Visitante:
                 hijo.visitar(self)
                 if hijo.tipo == TipoNodo.TEXTO:
                     check = self.tablaSimbolos.verificarExistencia(hijo.contenido)
-                    nodoActual.atributos["tipo"] = check["referencia"].atributos[
-                        "tipo"
-                    ]
+                    nodoActual.atributos["tipo"] = check["referencia"].atributos["tipo"]
                 else:
                     nodoActual.atributos["tipo"] = hijo.atributos["tipo"]
 
@@ -383,7 +380,9 @@ class Visitante:
             if simbolos["nombre"] == nodoActual.contenido:
                 # print(simbolos["referencia"].atributos)
                 if simbolos["referencia"].atributos != {}:
-                    nodoActual.atributos["tipo"] = simbolos["referencia"].atributos["tipo"]
+                    nodoActual.atributos["tipo"] = simbolos["referencia"].atributos[
+                        "tipo"
+                    ]
                     return
         nodoActual.atributos["tipo"] = TipoDatos.TEXTO
 
@@ -450,6 +449,7 @@ class Visitante:
         for hijo in nodoActual.nodos:
             hijo.visitar(self)
 
+
 class Verificador:
     asa: ÁrbolSintáxisAbstracta
     visitador: Visitante
@@ -471,7 +471,19 @@ class Verificador:
             print([])
 
     def cargarAmbiente(self):
-        funciones = [()]
+        funciones_estandar = [
+            ("proteo", TipoDatos.TEXTO)
+            # ("viene_bolita", TipoDatos.TEXTO),
+            # ("trome", TipoDatos.NÚMERO),
+            # ("sueltele", TipoDatos.NINGUNO),
+            # ("echandi_jiménez", TipoDatos.TEXTO),
+        ]
+
+        for nombre, tipo in funciones_estandar:
+            nodo = NodoÁrbol(
+                TipoNodo.FUNCIÓN, contenido=nombre, atributos={"tipo": tipo}
+            )
+            self.tablaSimbolos.nuevoRegistro(nodo)
 
     def verificar(self):
         self.visitador.visitar(self.asa.raiz)

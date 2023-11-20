@@ -4,7 +4,7 @@ ra es_primo(fenix #n){
 		hades  Falso;
 	};
 	fenix #i = 2;
-	sisifo (i<= raizQ(n)){
+	sisifo (i<= (n**0.5)){
 		temis ((n % i) == 0) atenea{
 			hades  Falso;
 		};

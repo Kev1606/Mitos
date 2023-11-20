@@ -3,7 +3,11 @@ from ExploradorMitos import Explorador
 from analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
 
-archivo = "./Ejemplos/DiaSemana.txt"
+archivo = "./Ejemplos/ConvertirABinario.txt"
+
+# EsPrimo revisar lo de la declaracion de variables (line 51) ----- OK
+# Fibonacci revisar lo de list out of range (line 175) ----- OK
+# ConvertirABinario revisar lo de declaracion de variables (line 51)
 
 # texto = utils.leer_archivo(archivo)
 # exp = Explorador(texto)
@@ -17,7 +21,7 @@ exp = Explorador(texto)
 exp.explorar()
 analizador = Analizador(exp.componentes)
 analizador.analizar()
-analizador.imprimirArbol()
+# analizador.imprimirArbol()
 print("---------------------------------------------------"+'\n'+ '\n' + '\n')
 verificador = Verificador(analizador.getASA())
 verificador.verificar()
