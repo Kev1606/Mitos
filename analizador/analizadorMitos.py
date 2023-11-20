@@ -205,7 +205,7 @@ class Analizador:
             if (self.componenteActual.texto).strip() == '}':
                 break
         self.verificar('}')
-        
+
         return NodoÁrbol(TipoNodo.BLOQUE_INSTRUCCIONES, nodos=nodosNuevos)
 
     def analizarListaInstrucciones(self):
@@ -272,6 +272,7 @@ class Analizador:
         self.verificar(')')
 
         nodosNuevos += [self.analizarBloqueInstrucciones()]
+        
         return NodoÁrbol(TipoNodo.REPETICIÓN, nodos=nodosNuevos)
 
     def analizarBifurcacion(self):
@@ -305,7 +306,7 @@ class Analizador:
         nodosNuevos += [self.analizarParametro()]
         nodosNuevos += [self.__verificar_comparador()]
         nodosNuevos += [self.analizarParametro()]
-
+        
         return NodoÁrbol(TipoNodo.COMPARACIÓN, nodos=nodosNuevos)
 
     def analizarLlamada(self):

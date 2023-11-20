@@ -40,6 +40,7 @@ def mitos():
         analizador = Analizador(exp.componentes)
         analizador.analizar()
         analizador.imprimirArbol()
+        
     elif args.verificador is True:
         texto = utils.leer_archivo(args.archivo)
 
