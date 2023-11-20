@@ -274,7 +274,8 @@ class Visitante:
 
         self.tablaSimbolos.cerrarBloque()
 
-        nodoActual.atributos["tipo"] = nodoActual.nodos[1].atributos["tipo"]
+        #print("hola", nodoActual)
+        #nodoActual.atributos["tipo"] = nodoActual.nodos[1].atributos["tipo"]
 
     def visitarBifurcacion(self, nodoActual):
         """

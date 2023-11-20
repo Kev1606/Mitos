@@ -34,6 +34,7 @@ def mitos():
         analizador = Analizador(exp.componentes)
         analizador.analizar()
         analizador.imprimirArbol()
+        
     elif args.verificador is True:
         texto = utils.leer_archivo(args.archivo)
         exp = Explorador(texto)
@@ -42,7 +43,7 @@ def mitos():
         analizador.analizar()
         verificador = Verificador(analizador.getASA())
         verificador.verificar()
-        verificador.imprimir_asa()
+        verificador.imprimirArbol()
     else:
         parser.print_help()
 
