@@ -1,7 +1,10 @@
 from utils.arbol import NodoÁrbol, ÁrbolSintáxisAbstracta, TipoNodo
 from Generador.visitadores import VisitantePython
+
+
 class VisitantePython:
     tabuladores = 0
+
     def visitar(self, nodo: TipoNodo):
         resultado = ""
         if nodo.tipo is TipoNodo.MASTER:
@@ -67,63 +70,119 @@ class VisitantePython:
         else:
             raise Exception("Error")
         return resultado
+
     def visitarMaster(self, nodoActual):
         return
+
     def visitarAsignacion(self, nodoActual):
         return
+
     def visitarExpresionMatematica(self, nodoActual):
         return
+
     def visitarExpresion(self, nodoActual):
         return
+
     def visitarFuncion(self, nodoActual):
-        return
+        funcion = """\ndef {}({}):\n{}"""
+       
+        elementos = []
+        for nodo in nodoActual.nodos:
+           elementos += [nodo.visitar(self)]
+
+        return funcion.format(elementos[0],elementos[1], '\n'.join(elementos[2]))
+    
     def visitarInvocacion(self, nodoActual):
         return
+
     def visitarParametrosInvocacion(self, nodoActual):
         return
+
     def visitarParametrosFuncion(self, nodoActual):
         return
+
     def visitarInstruccion(self, nodoActual):
         return
+
     def visitarRepeticion(self, nodoActual):
         return
+
     def visitarBifurcacion(self, nodoActual):
         return
+
     def visitarTemis(self, nodoActual):
         return
+
     def visitarSino(self, nodoActual):
         return
+
     def visitarOperadorLogico(self, nodoActual):
         return
+
     def visitarCondicion(self, nodoActual):
         return
+
     def visitarComparacion(self, nodoActual):
-        return
+        """
+        Comparación::= Valor (Comparador) Valor
+        """
+        resultado = "{} ({}) {}"
+        elementos = []
+        for nodo in nodoActual.nodos:
+            elementos.append += [nodo.visitar(self)]
+        return resultado.format(elementos[0], elementos[1], elementos[2])
+
     def visitarRetorno(self, nodoActual):
-        return
+        """
+        Retorno:: hades (Valor)?
+        """
+        resultado = "return {}"
+        valor = ""
+        for nodo in nodoActual.nodos:
+            valor = nodo.visitar(self)
+        return resultado.format(valor)
+
     def visitarError(self, nodoActual):
         return
+
     def visitarPrincipal(self, nodoActual):
         return
+
     def visitarBloqueInstrucciones(self, nodoActual):
         return
+
     def visitarOpeMate(self, nodoActual):
         return
+
     def visitarComparador(self, nodoActual):
-        return
+        return nodoActual.contenido
+
     def visitarVariable(self, nodoActual):
         return
+
     def visitarBooleano(self, nodoActual):
-        return
+        if nodoActual.contenido == "Verdadero":
+            return 'True'
+        elif nodoActual.contenido == "Falso":
+            return 'False'
+        else:
+            return nodoActual.contenido
+
+
     def visitarTexto(self, nodoActual):
-        return
+        return nodoActual.contenido
+
     def visitarEntero(self, nodoActual):
-        return 
+        return nodoActual.contenido
+
     def visitarFlotante(self, nodoActual):
-        return
+        return nodoActual.contenido
+
     def visitarIdentificador(self, nodoActual):
-        return
+        return nodoActual.contenido
+
     def visitarTipo(self, nodoActual):
         return
+
     def visitarString(self, nodoActual):
         return
