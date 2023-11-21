@@ -17,10 +17,10 @@ ra caracoles(){
         turno = turno + 1;
     };
 
-    if (pos_Car1>pos_Car2){
+    temis (pos_Car1>pos_Car2){
         sirena("Gano el caracol 1");
     };
-    else{
+    atenea{
         sirena("Gano el caracol 2");
     }
 
