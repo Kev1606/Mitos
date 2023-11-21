@@ -72,11 +72,11 @@ class VisitantePython:
         return resultado
 
     def visitarMaster(self, nodoActual):
-        return ""
+        return
 
     def visitarAsignacion(self, nodoActual):
-        asignacion = """{} = {}"""
-        
+
+        asignacion = """e"""
         return
 
     def visitarExpresionMatematica(self, nodoActual):
@@ -95,31 +95,13 @@ class VisitantePython:
         return funcion.format(elementos[0],elementos[1], '\n'.join(elementos[2]))
     
     def visitarInvocacion(self, nodoActual):
-        invocacion = """{}({})"""
-
-        elementos = []
-        for nodo in nodoActual.nodos:
-            elementos += [nodo.visitar(self)]
-        
-        return invocacion.format(elementos[0],elementos[1])
+        return
 
     def visitarParametrosInvocacion(self, nodoActual):
-        params = """{}"""
-        
-        elementos = []
-        for nodo in nodoActual.nodos:
-            elementos += [nodo.visitar(self)]
-        
-        return params.format(elementos[0],','.join(elementos[1])) #tengo dudas
+        return
 
     def visitarParametrosFuncion(self, nodoActual):
-        params = """{}"""
-        
-        elementos = []
-        for nodo in nodoActual.nodos:
-            elementos += [nodo.visitar(self)]
-        
-        return params.format(elementos[0],','.join(elementos[1])) #tengo dudas
+        return
 
     def visitarInstruccion(self, nodoActual):
         return
@@ -134,10 +116,10 @@ class VisitantePython:
         return
 
     def visitarSino(self, nodoActual):
-        return
+        return "else:\n\t"
 
     def visitarOperadorLogico(self, nodoActual):
-        return nodoActual.contenido
+        return
 
     def visitarCondicion(self, nodoActual):
         return
@@ -172,7 +154,10 @@ class VisitantePython:
         return
 
     def visitarOpeMate(self, nodoActual):
-        return nodoActual.contenido
+        instrucciones = []
+        for nodo in nodoActual.nodos:
+            instrucciones.append(nodo.visitar(self))
+        return " ".join(instrucciones)
 
     def visitarComparador(self, nodoActual):
         return nodoActual.contenido
@@ -202,7 +187,7 @@ class VisitantePython:
         return nodoActual.contenido
 
     def visitarTipo(self, nodoActual):
-        return
+        return ""
 
     def visitarString(self, nodoActual):
         return nodoActual.contenido
