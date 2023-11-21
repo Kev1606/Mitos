@@ -2,7 +2,7 @@
 
 from cargarArchivo import cargarArchivo as utils
 from Explorador.ExploradorMitos import Explorador
-from Analizador.analizadorMitos import Analizador
+from analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
 from Generador.generadorMitos import Generador
 import argparse
@@ -18,7 +18,7 @@ parser.add_argument('--solo-analizar', dest='analizador', action='store_true',
 parser.add_argument('--solo-verificar', dest='verificador', action='store_true',
                     help='Solo ejecutar el verificador y retorna un preorden del arbol sintactico y  y estructuras de apoyo generadas en la verificación')
 
-parser.add_argument('--generar-python', dest='python', action='store_true', 
+parser.add_argument('--solo-generar', dest='python', action='store_true', 
                     help='Genera código python')
 
 parser.add_argument('archivo', help='Archivo de código fuente')

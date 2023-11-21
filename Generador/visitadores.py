@@ -1,5 +1,4 @@
 from utils.arbol import NodoÁrbol, ÁrbolSintáxisAbstracta, TipoNodo
-from Generador.visitadores import VisitantePython
 
 
 class VisitantePython:
@@ -49,8 +48,6 @@ class VisitantePython:
             resultado = self.visitarOpeMate(nodo)
         elif nodo.tipo is TipoNodo.COMPARADOR:
             resultado = self.visitarComparador(nodo)
-        elif nodo.tipo is TipoNodo.VARIABLE:
-            resultado = self.visitarVariable(nodo)
         elif nodo.tipo is TipoNodo.BOOLEANO:
             resultado = self.visitarBooleano(nodo)
         elif nodo.tipo is TipoNodo.TEXTO:
@@ -105,34 +102,44 @@ class VisitantePython:
         return resultado.format(instrucciones[0], instrucciones[1])
 
     def visitarParametrosInvocacion(self, nodoActual):
-        return
+        params = """{}"""
+
+        return params.format(nodoActual.contenido)
 
     def visitarParametrosFuncion(self, nodoActual):
-        return
+        params = """{}"""
+
+        return params.format(nodoActual.contenido)
 
     def visitarInstruccion(self, nodoActual):
         return
 
     def visitarRepeticion(self, nodoActual):
-        return
-
-    def visitarBifurcacion(self, nodoActual):
-        desicion = """if {} :"""
+        ciclo = """while {}: \n{}"""
 
         elementos = []
-        
 
-        return
+        for nodo in nodoActual.nodos:
+            elementos += [nodo.contenido]
+
+        return ciclo.format(elementos[0],elementos[1])
+
+    def visitarBifurcacion(self, nodoActual):
+        desicion = """if {} : \n{}"""
+
+        elementos = []
+
+        for nodo in nodoActual.nodos:
+            elementos += [nodo.contenido]
+
+        return desicion.format(elementos[0],elementos[1])
 
     def visitarTemis(self, nodoActual):
-        resultado = """if {} :"""
+        resultado = """if {} : {}"""
         instrucciones = []
         for nodo in nodoActual.nodos:
             instrucciones.append(nodo.visitar(self))
         return resultado.format(instrucciones[0], "\n".join(instrucciones[1]))
-
-    """def visitarAtenea(self, nodoActual):
-        return "else:\n\t""""
 
     def visitarCondicion(self, nodoActual):
         return ""
@@ -177,15 +184,7 @@ class VisitantePython:
         return " ".join(instrucciones)
 
     def visitarComparador(self, nodoActual):
-        comparador = """{} {} {}"""
-        elementos = []
-
-        for nodo in elementos 
         return nodoActual.contenido
-
-    def visitarVariable(self, nodoActual):
-        resultado = """{}={}"""
-        return
 
     def visitarBooleano(self, nodoActual):
         if nodoActual.contenido == "Verdadero":
