@@ -33,8 +33,6 @@ class VisitantePython:
             resultado = self.visitarTemis(nodo)
         elif nodo.tipo is TipoNodo.SINO:
             resultado = self.visitarSino(nodo)
-        elif nodo.tipo is TipoNodo.OPERADOR_LÓGICO:
-            resultado = self.visitarOperadorLogico(nodo)
         elif nodo.tipo is TipoNodo.CONDICIÓN:
             resultado = self.visitarCondicion(nodo)
         elif nodo.tipo is TipoNodo.COMPARACIÓN:
@@ -72,18 +70,23 @@ class VisitantePython:
         return resultado
 
     def visitarMaster(self, nodoActual):
-        return
+        return """"""
 
     def visitarAsignacion(self, nodoActual):
-
-        asignacion = """e"""
-        return
-
+        resultado = """{}={}"""
+        elementos = []
+        for nodo in nodoActual.nodos:
+            elementos.append(nodo.visitar(self))
+        return resultado.format(elementos[0], elementos[1])
     def visitarExpresionMatematica(self, nodoActual):
-        return
+        expre = """{}"""
+        return expre.format(nodoActual.contenido)
 
     def visitarExpresion(self, nodoActual):
-        return
+        instrucciones = []
+        for nodo in nodoActual.nodos:
+            instrucciones.append(nodo.visitar(self))
+        return " ".join(instrucciones)
 
     def visitarFuncion(self, nodoActual):
         funcion = """\ndef {}({}):\n{}"""
@@ -95,7 +98,11 @@ class VisitantePython:
         return funcion.format(elementos[0],elementos[1], '\n'.join(elementos[2]))
     
     def visitarInvocacion(self, nodoActual):
-        return
+        resultado = """ {}({})"""
+        instrucciones = []
+        for nodo in nodoActual.nodos:
+            instrucciones.append(nodo.visitar(self))
+        return resultado.format(instrucciones[0], instrucciones[1])
 
     def visitarParametrosInvocacion(self, nodoActual):
         return
@@ -110,19 +117,25 @@ class VisitantePython:
         return
 
     def visitarBifurcacion(self, nodoActual):
+        desicion = """if {} :"""
+
+        elementos = []
+        
+
         return
 
     def visitarTemis(self, nodoActual):
-        return
+        resultado = """if {} :"""
+        instrucciones = []
+        for nodo in nodoActual.nodos:
+            instrucciones.append(nodo.visitar(self))
+        return resultado.format(instrucciones[0], "\n".join(instrucciones[1]))
 
-    def visitarSino(self, nodoActual):
-        return "else:\n\t"
-
-    def visitarOperadorLogico(self, nodoActual):
-        return
+    """def visitarAtenea(self, nodoActual):
+        return "else:\n\t""""
 
     def visitarCondicion(self, nodoActual):
-        return
+        return ""
 
     def visitarComparacion(self, nodoActual):
         """
@@ -145,13 +158,17 @@ class VisitantePython:
         return resultado.format(valor)
 
     def visitarError(self, nodoActual):
-        return
-
-    def visitarPrincipal(self, nodoActual):
-        return
+        return """ERROR"""
 
     def visitarBloqueInstrucciones(self, nodoActual):
-        return
+        
+        instrucciones = """\n{}"""
+        ins = []
+
+        for nodo in nodoActual.nodos:
+            ins += [nodo.visitar(self)]
+        
+        return instrucciones.format(ins)
 
     def visitarOpeMate(self, nodoActual):
         instrucciones = []
@@ -160,9 +177,14 @@ class VisitantePython:
         return " ".join(instrucciones)
 
     def visitarComparador(self, nodoActual):
+        comparador = """{} {} {}"""
+        elementos = []
+
+        for nodo in elementos 
         return nodoActual.contenido
 
     def visitarVariable(self, nodoActual):
+        resultado = """{}={}"""
         return
 
     def visitarBooleano(self, nodoActual):
@@ -187,6 +209,7 @@ class VisitantePython:
         return nodoActual.contenido
 
     def visitarTipo(self, nodoActual):
+        """Tipo:: =  Entero | Flotante | Texto | Booleano"""
         return ""
 
     def visitarString(self, nodoActual):
