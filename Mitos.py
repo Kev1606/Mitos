@@ -1,8 +1,8 @@
 # # Archivo principal para el explorador
 
 from cargarArchivo import cargarArchivo as utils
-from ExploradorMitos import Explorador
-from analizador.analizadorMitos import Analizador
+from Explorador.ExploradorMitos import Explorador
+from Analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
 # from Generador.generadorMitos import Generador
 import argparse
