@@ -1,9 +1,10 @@
 from cargarArchivo import cargarArchivo as utils
-from ExploradorMitos import Explorador
-from analizador.analizadorMitos import Analizador
+from Explorador.ExploradorMitos import Explorador
+from Analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
 
-archivo = "./Ejemplos/ConvertirABinario.txt"
+# archivo = "./Ejemplos/ConvertirABinario.txt"
+archivo = "./EjemploCaracol/Caracoles.txt"
 
 # EsPrimo revisar lo de la declaracion de variables (line 51) ----- OK
 # Fibonacci revisar lo de list out of range (line 175) ----- OK

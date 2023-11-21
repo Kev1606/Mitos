@@ -1,4 +1,4 @@
-ra caracoles(){
+ra caracoles(unicornio #caracol1, unicornio #caracol2){
 
     fenix #pos_Car1 = 0;
     fenix #pos_Car2 = 0;
@@ -18,11 +18,11 @@ ra caracoles(){
     };
 
     temis (pos_Car1>pos_Car2) atenea{
-        sirena("Gano el caracol 1");
-    };
-    temis (pos_Car2>=pos_Car1) atenea{
-        sirena("Gano el caracol 2");
-    };
+        sirena("Gano" + caracol1);
+        hades "Gano el caracol 1";
+    }
+    sirena("Gano" + caracol2);
+    hades "Gano el caracol 2";
 
     hades 0;
 

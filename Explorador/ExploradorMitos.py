@@ -56,7 +56,7 @@ class Explorador:
     descriptores = [
         (TipoComp.MASTER, r'^(zeus)'),
         (TipoComp.FUNCION, r'^(ra\s+)'),
-        (TipoComp.PUNTUACION, r'^;'),
+        (TipoComp.PUNTUACION, r'^(\;|\,|\&|\|\|)'),
         (TipoComp.COMPARADOR,r'^(\=\=|\!\=|\<\=|\>\=|\<|\>)'),
         (TipoComp.PARENTESIS, r'^([ \( | \) | \{ | \} ])'),    
         (TipoComp.COMENTARIO, r'^(\-\-\s*)([a-zA-Z0-9_-]+)'),
