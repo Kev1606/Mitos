@@ -6,6 +6,7 @@ class VisitantePython:
 
     def visitar(self, nodo: TipoNodo):
         resultado = ""
+        print("tipo: ",nodo.tipo)
         if nodo.tipo is TipoNodo.MASTER:
             resultado = self.visitarMaster(nodo)
         elif nodo.tipo is TipoNodo.ASIGNACIÓN:
@@ -67,7 +68,10 @@ class VisitantePython:
         return resultado
 
     def visitarMaster(self, nodoActual):
-        return """"""
+        instrucciones = []
+        for nodo in nodoActual.nodos:
+            instrucciones.append(nodo.visitar(self))
+        return "\n".join(instrucciones)
 
     def visitarAsignacion(self, nodoActual):
         resultado = """{}={}"""
@@ -90,6 +94,9 @@ class VisitantePython:
        
         elementos = []
         for nodo in nodoActual.nodos:
+           for i in nodo.nodos:
+               for j in i.nodos:
+                    print(f"contenido de nodos: {j.contenido}")
            elementos += [nodo.visitar(self)]
 
         return funcion.format(elementos[0],elementos[1], '\n'.join(elementos[2]))
@@ -102,6 +109,7 @@ class VisitantePython:
         return resultado.format(instrucciones[0], instrucciones[1])
 
     def visitarParametrosInvocacion(self, nodoActual):
+        print(f"params: {nodoActual.contenido}")
         params = """{}"""
 
         return params.format(nodoActual.contenido)

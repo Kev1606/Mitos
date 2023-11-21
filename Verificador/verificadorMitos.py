@@ -484,3 +484,6 @@ class Verificador:
 
     def verificar(self):
         self.visitador.visitar(self.asa.raiz)
+    def getASA(self):
+        return self.asa
+    

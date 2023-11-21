@@ -20,8 +20,8 @@ def sirena(texto):
         if self.asa.raiz is None:
             print([])
         else:
-            self.asa.__preorden()
+            self.asa.imprimir_preorden()
     def generar(self):
         resultado = self.visitador.visitar(self.asa.raiz)
         print(self.ambienteEstandar)
-        print(resultado)
+        print(f"resultado: {resultado}")
