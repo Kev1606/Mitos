@@ -246,6 +246,8 @@ class Analizador:
             nodosNuevos += [self.analizarRetorno()]
         elif (self.componenteActual.texto).strip() == 'sisifo':
             nodosNuevos += [self.analizarMientras()]
+        elif (self.componenteActual.texto).strip() == '+' or (self.componenteActual.texto).strip() == '-':
+            nodosNuevos += [self.analizarIncremento()]
         else:
             self.verificar(';')
         
@@ -259,6 +261,19 @@ class Analizador:
         nodosNuevos += [self.analizarAsignacionEspecial()]
 
         return NodoÁrbol(TipoNodo.ASIGNACIÓN, nodos=nodosNuevos)
+    
+    def analizarIncremento(self):
+        nodosNuevos = []
+        self.verificarTipoComponente(TipoComp.OPEMATE)
+        self.siguienteComponente()
+        if self.componentesLexicos[self.posicionComponenteActual].tipo == TipoComp.ENTERO:
+            self.verificarEntero()
+        return NodoÁrbol(TipoNodo.OPEMATE, nodos=nodosNuevos)
+        # nodosNuevos += [self.verificarVariable()]
+        # self.verificar('+')
+        # self.verificar('+')
+
+        return NodoÁrbol(TipoNodo.INCREMENTO, nodos=nodosNuevos)
 
     def analizarAsignacionEspecial(self):
         nodosNuevos = []
@@ -280,6 +295,10 @@ class Analizador:
 
         self.verificar('(')
         nodosNuevos += [self.analizarComparacion()]
+        while self.componenteActual.texto == '&' or self.componenteActual.texto == '|':
+            self.verificarTipoComponente(TipoComp.PUNTUACION)
+            self.siguienteComponente()
+            nodosNuevos += [self.analizarComparacion()]
         self.verificar(')')
 
         nodosNuevos += [self.analizarBloqueInstrucciones()]
@@ -350,6 +369,10 @@ class Analizador:
 
         # Fijo un valor tiene que haber
         nodosNuevos += [self.analizarParametro()]
+
+        while ( (self.componenteActual.texto).strip() == '+'):
+            self.verificar('+')
+            nodosNuevos += [self.analizarParametro()]
 
         while( (self.componenteActual.texto).strip() == ','):
             self.verificar(',')
