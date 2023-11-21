@@ -1,30 +1,28 @@
-zeus(){
-    ra caracoles(){
+ra caracoles(){
 
-        fenix #pos_Car1 = 0;
-        fenix #pos_Car2 = 0;
+    fenix #pos_Car1 = 0;
+    fenix #pos_Car2 = 0;
 
-        fenix #meta = 100;
-        fenix #turno = 1;
+    fenix #meta = 100;
+    fenix #turno = 1;
 
-        sisifo (pos_Car1 < meta & pos_Car2 < meta){
-            pos_Car1 = pos_Car1 + 1;
-            pos_Car2 = pos_Car2 + 1;
+    sisifo (pos_Car1 < meta & pos_Car2 < meta){
+        pos_Car1 = pos_Car1 + 1;
+        pos_Car2 = pos_Car2 + 1;
 
-            sirena("Turno: " + turno);
-            sirena("C1:" + "@Y" );
-            sirena("C2:" + "@Y" );
+        sirena("Turno: " + turno);
+        sirena("C1:" + "@Y" );
+        sirena("C2:" + "@Y" );
 
-            turno = turno + 1;
-        };
-
-        if (pos_Car1>pos_Car2){
-            sirena("Gano el caracol 1");
-        };
-        else{
-            sirena("Gano el caracol 2");
-        }
-
-
+        turno = turno + 1;
     };
+
+    if (pos_Car1>pos_Car2){
+        sirena("Gano el caracol 1");
+    };
+    else{
+        sirena("Gano el caracol 2");
+    }
+
+
 };

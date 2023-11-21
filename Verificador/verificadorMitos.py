@@ -472,7 +472,8 @@ class Verificador:
 
     def cargarAmbiente(self):
         funciones_estandar = [
-            ("proteo", TipoDatos.TEXTO)
+            ("proteo", TipoDatos.TEXTO),
+            ("sirena", TipoDatos.TEXTO)
         ]
 
         for nombre, tipo in funciones_estandar:

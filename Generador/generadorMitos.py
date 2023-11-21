@@ -7,6 +7,9 @@ class Generador:
 
 def proteo(numero):
     return str(numero)
+
+def sirena(texto):
+    print(texto)
 """
 
     def __init__(self, nuevoASA: ÁrbolSintáxisAbstracta):

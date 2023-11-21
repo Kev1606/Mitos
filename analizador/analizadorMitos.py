@@ -1,4 +1,4 @@
-from ExploradorMitos import TipoComp, ComponenteLexico
+from Explorador.ExploradorMitos import TipoComp, ComponenteLexico
 from utils.arbol import ÁrbolSintáxisAbstracta, NodoÁrbol, TipoNodo
 
 class Analizador:
