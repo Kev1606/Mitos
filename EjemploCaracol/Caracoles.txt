@@ -24,5 +24,6 @@ ra caracoles(unicornio #caracol1, unicornio #caracol2){
     sirena("Gano" + caracol2);
     hades "Gano el caracol 2";
 
+    hades 0;
 
 };
