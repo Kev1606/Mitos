@@ -2,6 +2,7 @@ from cargarArchivo import cargarArchivo as utils
 from Explorador.ExploradorMitos import Explorador
 from Analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
+from Generador.generadorMitos import Generador
 
 # archivo = "./Ejemplos/ConvertirABinario.txt"
 archivo = "./EjemploCaracol/Caracoles.txt"
@@ -26,4 +27,5 @@ analizador.analizar()
 print("---------------------------------------------------"+'\n'+ '\n' + '\n')
 verificador = Verificador(analizador.getASA())
 verificador.verificar()
-verificador.imprimirArbol()
+generador = Generador(verificador.getASA())
+generador.generar()

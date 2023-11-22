@@ -78,7 +78,12 @@ class VisitantePython:
         elementos = []
         for nodo in nodoActual.nodos:
             elementos.append(nodo.visitar(self))
-        return resultado.format(elementos[0], elementos[1])
+        
+        if len(elementos) == 2:
+            return resultado.format(elementos[1], 0)
+        else:
+            print(resultado.format(elementos[1], elementos[2]))
+            return resultado.format(elementos[1], elementos[2])
     def visitarExpresionMatematica(self, nodoActual):
         expre = """{}"""
         return expre.format(nodoActual.contenido)
@@ -94,9 +99,9 @@ class VisitantePython:
        
         elementos = []
         for nodo in nodoActual.nodos:
-           for i in nodo.nodos:
-               for j in i.nodos:
-                    print(f"contenido de nodos: {j.tipo}")
+        #    for i in nodo.nodos:
+        #        for j in i.nodos:
+        #             print(f"contenido de nodos: {j.tipo}")
            elementos += [nodo.visitar(self)]
         print(f"elementos: {elementos}")
 
@@ -110,10 +115,17 @@ class VisitantePython:
         return resultado.format(instrucciones[0], instrucciones[1])
 
     def visitarParametrosInvocacion(self, nodoActual):
-        print(f"params: {nodoActual.contenido}")
-        params = """{}"""
+        # print(f"params: {nodoActual.contenido}")
+        # params = """{}"""
+        parametros = []
 
-        return params.format(nodoActual.contenido)
+        for nodo in nodoActual.nodos:
+            parametros.append(nodo.visitar(self))
+        
+        if len(parametros) > 0:
+            return ",".join(parametros)
+        else:
+            return ""
 
     def visitarParametrosFuncion(self, nodoActual):
         params = """{}"""
@@ -121,7 +133,10 @@ class VisitantePython:
         return params.format(nodoActual.contenido)
 
     def visitarInstruccion(self, nodoActual):
-        return
+        instruccion = ""
+        for nodo in nodoActual.nodos:
+            instruccion = nodo.visitar(self)
+        return instruccion
 
     def visitarRepeticion(self, nodoActual):
         ciclo = """while {}: \n{}"""
@@ -129,7 +144,9 @@ class VisitantePython:
         elementos = []
 
         for nodo in nodoActual.nodos:
-            elementos += [nodo.contenido]
+            if nodo.contenido in ["(", ")"]:
+                continue
+            elementos += [nodo.visitar(self)]
 
         return ciclo.format(elementos[0],elementos[1])
 
@@ -157,10 +174,10 @@ class VisitantePython:
         """
         Comparación::= Valor (Comparador) Valor
         """
-        resultado = "{} ({}) {}"
+        resultado = "{} {} {}"
         elementos = []
         for nodo in nodoActual.nodos:
-            elementos.append += [nodo.visitar(self)]
+            elementos.append(nodo.visitar(self))
         return resultado.format(elementos[0], elementos[1], elementos[2])
 
     def visitarRetorno(self, nodoActual):
