@@ -26,6 +26,7 @@ class TipoNodo(Enum):
     BLOQUE_INSTRUCCIONES  = auto() #
     OPEMATE               = auto() #
     COMPARADOR            = auto()
+    PUNTUACION            = auto()
     VARIABLE              = auto() #
     BOOLEANO              = auto() #
     TEXTO                 = auto() #

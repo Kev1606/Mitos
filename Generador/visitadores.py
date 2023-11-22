@@ -45,6 +45,8 @@ class VisitantePython:
             resultado = self.visitarPrincipal(nodo)
         elif nodo.tipo is TipoNodo.BLOQUE_INSTRUCCIONES:
             resultado = self.visitarBloqueInstrucciones(nodo)
+        elif nodo.tipo is TipoNodo.PUNTUACION:
+            resultado = self.visitarPuntuacion(nodo)
         elif nodo.tipo is TipoNodo.OPEMATE:
             resultado = self.visitarOpeMate(nodo)
         elif nodo.tipo is TipoNodo.COMPARADOR:
@@ -147,12 +149,14 @@ class VisitantePython:
             if nodo.contenido in ["(", ")"]:
                 continue
             elementos += [nodo.visitar(self)]
-
-        return ciclo.format(elementos[0],elementos[1])
+        if len(elementos) == 2:
+            return ciclo.format(elementos[0], 1)
+        else:
+            return ciclo.format(elementos[0] + " " + elementos[1] + " " + elementos[2], '\n'.join(elementos[3]))
 
     def visitarBifurcacion(self, nodoActual):
         desicion = """if {} : \n{}"""
-
+        # REVISAR ESTA
         elementos = []
 
         for nodo in nodoActual.nodos:
@@ -162,6 +166,7 @@ class VisitantePython:
 
     def visitarTemis(self, nodoActual):
         resultado = """if {} : {}"""
+        # REVISAR ESTA
         instrucciones = []
         for nodo in nodoActual.nodos:
             instrucciones.append(nodo.visitar(self))
@@ -195,7 +200,7 @@ class VisitantePython:
 
     def visitarBloqueInstrucciones(self, nodoActual):
         
-        instrucciones = """\n{}"""
+        instrucciones = """{}"""
         ins = []
 
         for nodo in nodoActual.nodos:
@@ -220,6 +225,11 @@ class VisitantePython:
         else:
             return nodoActual.contenido
 
+    def visitarPuntuacion(self, nodoActual):
+        if nodoActual.contenido == "&":
+            return 'and'
+        elif nodoActual.contenido == "|":
+            return 'or'
 
     def visitarTexto(self, nodoActual):
         return nodoActual.contenido

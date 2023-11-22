@@ -110,6 +110,9 @@ class Visitante:
 
         elif nodo.tipo is TipoNodo.COMPARADOR:
             self.visitarComparador(nodo)
+        
+        elif nodo.tipo is TipoNodo.PUNTUACION:
+            self.visitarPuntuacion(nodo)
 
         elif nodo.tipo is TipoNodo.COMPARACIÓN:
             self.visitarComparacion(nodo)
@@ -157,6 +160,7 @@ class Visitante:
         # Aqui se va a mostrar un nodo del analizador que no ha sido declarado arriba,
         # cuando salga, se debe declarar y crear la funcion
         else:
+            print("TODO SE DERRUMBO")
             raise Exception("Se recibio un TipoNodo que no esta definido: ", nodo)
 
     def __visitarPrograma(self, nodoActual):
@@ -385,6 +389,12 @@ class Visitante:
                     ]
                     return
         nodoActual.atributos["tipo"] = TipoDatos.TEXTO
+    
+    def visitarPuntuacion(self, nodoActual):
+        """
+        Visita el nodo de puntuacion
+        """
+        nodoActual.atributos["tipo"] = TipoDatos.COMPARADOR
 
     def visitarEntero(self, nodoActual):
         """

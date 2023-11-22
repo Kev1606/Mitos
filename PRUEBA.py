@@ -4,7 +4,7 @@ from Analizador.analizadorMitos import Analizador
 from Verificador.verificadorMitos import Verificador
 from Generador.generadorMitos import Generador
 
-# archivo = "./Ejemplos/ConvertirABinario.txt"
+# archivo = "./Ejemplos/DiaSemana.txt"
 archivo = "./EjemploCaracol/Caracoles.txt"
 
 # EsPrimo revisar lo de la declaracion de variables (line 51) ----- OK
@@ -27,5 +27,6 @@ analizador.analizar()
 print("---------------------------------------------------"+'\n'+ '\n' + '\n')
 verificador = Verificador(analizador.getASA())
 verificador.verificar()
+verificador.imprimirArbol()
 generador = Generador(verificador.getASA())
 generador.generar()

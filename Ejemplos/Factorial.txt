@@ -1,6 +1,5 @@
 -- funcion factorial evaluada en n
-fenix #n = 3
-ra factorial(){
+ra factorial(fenix #n){
 	fenix #resultado = 1;
 	sisifo (n>1){
 		resultado = (resultado*n);

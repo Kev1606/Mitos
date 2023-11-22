@@ -296,8 +296,7 @@ class Analizador:
         self.verificar('(')
         nodosNuevos += [self.analizarComparacion()]
         while self.componenteActual.texto == '&' or self.componenteActual.texto == '|':
-            self.verificarTipoComponente(TipoComp.PUNTUACION)
-            self.siguienteComponente()
+            nodosNuevos += [self.analizarPuntuacion()]
             nodosNuevos += [self.analizarComparacion()]
         self.verificar(')')
 
@@ -531,6 +530,12 @@ class Analizador:
         self.verificarTipoComponente(TipoComp.ENTERO)
 
         nodo = NodoÁrbol(TipoNodo.ENTERO, contenido=(self.componenteActual.texto).strip())
+        self.siguienteComponente()
+        return nodo
+    
+    def analizarPuntuacion(self):
+        self.verificarTipoComponente(TipoComp.PUNTUACION)
+        nodo = NodoÁrbol(TipoNodo.PUNTUACION, contenido=(self.componenteActual.texto).strip())
         self.siguienteComponente()
         return nodo
     
