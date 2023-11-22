@@ -96,8 +96,9 @@ class VisitantePython:
         for nodo in nodoActual.nodos:
            for i in nodo.nodos:
                for j in i.nodos:
-                    print(f"contenido de nodos: {j.contenido}")
+                    print(f"contenido de nodos: {j.tipo}")
            elementos += [nodo.visitar(self)]
+        print(f"elementos: {elementos}")
 
         return funcion.format(elementos[0],elementos[1], '\n'.join(elementos[2]))
     
